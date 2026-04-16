@@ -1,13 +1,13 @@
 <script setup>
 import { onMounted, onBeforeUnmount } from 'vue'
-import FunctioningSection from './components/FunctioningSection.vue'
-import GovernanceSection from './components/GovernanceSection.vue'
-import HeroSection from './components/HeroSection.vue'
-import MissionSection from './components/MissionSection.vue'
-import RevenueVisionSection from './components/RevenueVisionSection.vue'
-import SiteHeader from './components/SiteHeader.vue'
-import StorySection from './components/StorySection.vue'
-import TeamLifecycleSection from './components/TeamLifecycleSection.vue'
+import FunctioningSection from './components/home/FunctioningSection.vue'
+import GovernanceSection from './components/home/GovernanceSection.vue'
+import HeroSection from './components/home/HeroSection.vue'
+import MissionSection from './components/home/MissionSection.vue'
+import RevenueVisionSection from './components/home/RevenueVisionSection.vue'
+import SiteHeader from './components/home/SiteHeader.vue'
+import StorySection from './components/home/StorySection.vue'
+import TeamLifecycleSection from './components/home/TeamLifecycleSection.vue'
 
 let observer
 
