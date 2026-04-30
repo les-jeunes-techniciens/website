@@ -42,30 +42,48 @@ const services = [
 
 const projects = [
   {
-    title: 'Portail de services local',
+    title: 'Agents d’automatisation IA pour entreprises',
     description:
-      'Interface web claire pour centraliser les demandes, suivre les priorités et simplifier la communication.',
-    technology: 'Vue, JavaScript, CSS',
+      'Des agents intelligents pour accélérer le support, analyser les données, détecter les anomalies et automatiser les réponses de façon sécurisée.',
+    technology: 'Python, OpenAI API, Node.js, SQL, PowerShell, cybersécurité',
   },
   {
-    title: 'Assistant d’automatisation',
+    title: 'Infrastructure et déploiement de postes',
     description:
-      'Prototype permettant de réduire les tâches répétitives et de structurer les suivis internes.',
-    technology: 'JavaScript, API, IA',
+      'Des environnements informatiques prêts à l’emploi pour entreprises, équipes et laboratoires: postes optimisés, réseau, sécurité et gestion de base.',
+    technology: 'Windows, Linux, Active Directory, virtualisation, hardware',
   },
   {
-    title: 'Poste optimisé pour étudiant',
+    title: 'Plateforme de formation en cybersécurité',
     description:
-      'Montage, installation et optimisation d’un ordinateur prêt pour les cours, les projets et le travail.',
-    technology: 'Windows, matériel PC',
+      'Une expérience web interactive pour sensibiliser vos équipes au phishing, à la sécurité réseau, à l’éthique hacker et aux bons réflexes numériques.',
+    technology: 'React, Node.js, SQL, Python, OWASP',
+  },
+  {
+    title: 'Sites web sécurisés et API',
+    description:
+      'Des sites modernes avec des API solides pour gérer les accès, protéger les données et offrir une expérience rapide, claire et professionnelle.',
+    technology: 'TypeScript, Express, FastAPI, Django, SQL, JWT, OAuth',
+  },
+  {
+    title: 'Applications mobiles et desktop',
+    description:
+      'Des applications utiles pour piloter les tâches, centraliser les suivis, gérer les clients ou créer des tableaux de bord adaptés à vos opérations.',
+    technology: 'Kotlin, Swift, C#, Flutter, React Native, SQL',
+  },
+  {
+    title: 'Système de gestion intelligent',
+    description:
+      'Une plateforme complète pour structurer l’inventaire, les employés, les projets et les rapports automatisés avec l’appui de l’IA.',
+    technology: 'Python, TypeScript, React, Vue.js, Node.js, PostgreSQL, REST',
   },
 ]
 
 const values = ['Transparence', 'Simplicité', 'Orientation résultats']
 
 const proofPoints = [
-  'Une équipe encadrée, motivée et orientée solutions',
-  'Des projets concrets pour développer de vraies compétences',
+  'Une équipe encadrée, motivée et orientée performance',
+  'Des solutions pensées pour attirer, convaincre et convertir',
   'Une communication simple, rapide et transparente',
 ]
 </script>
@@ -88,10 +106,10 @@ const proofPoints = [
 
       <div class="hero-panel reveal delay-one">
         <span>Approche</span>
-        <strong>Projets réels, équipe motivée, progression continue.</strong>
+        <strong>Stratégie claire, exécution rapide, impact mesurable.</strong>
         <p>
-          Nous apprenons en livrant, avec une communication claire et une attention
-          constante à la qualité.
+          Nous transformons vos besoins en actions concrètes pour renforcer votre
+          présence, optimiser vos processus et générer des résultats.
         </p>
       </div>
     </section>
@@ -115,7 +133,7 @@ const proofPoints = [
     <section id="projets" class="page-section">
       <div class="section-heading reveal">
         <p class="section-kicker">Projets</p>
-        <h2>Des exemples concrets de ce que nous pouvons bâtir.</h2>
+        <h2>Des solutions prêtes à créer de la valeur pour vos opérations.</h2>
       </div>
 
       <div class="projects-grid">
@@ -142,9 +160,9 @@ const proofPoints = [
             en solutions utiles, avec une approche claire, humaine et orientée résultats.
           </p>
           <p>
-            Chaque mandat devient une occasion de livrer de la valeur tout en formant
-            des talents capables de comprendre un besoin, proposer une solution et
-            l’améliorer avec rigueur. Nous travaillons comme une jeune entreprise:
+            Chaque mandat est pensé pour créer un impact visible: mieux présenter
+            votre offre, simplifier vos opérations, augmenter votre efficacité et
+            soutenir votre croissance. Nous travaillons comme une jeune entreprise:
             rapidement, simplement et avec le souci de bien faire.
           </p>
         </div>

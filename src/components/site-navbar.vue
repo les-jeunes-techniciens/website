@@ -13,9 +13,22 @@ const navigationLinks = [
   { label: 'Contact', href: '#contact' },
 ]
 
-function applyTheme() {
+function getDefaultTheme() {
+  const savedTheme = localStorage.getItem('theme')
+
+  if (savedTheme === 'light' || savedTheme === 'dark') {
+    return savedTheme
+  }
+
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+}
+
+function applyTheme(shouldSave = true) {
   document.documentElement.dataset.theme = isDarkMode.value ? 'dark' : 'light'
-  localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light')
+
+  if (shouldSave) {
+    localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light')
+  }
 }
 
 function closeMenu() {
@@ -36,8 +49,8 @@ function updateHeaderState() {
 }
 
 onMounted(() => {
-  isDarkMode.value = localStorage.getItem('theme') === 'dark'
-  applyTheme()
+  isDarkMode.value = getDefaultTheme() === 'dark'
+  applyTheme(localStorage.getItem('theme') !== null)
   updateHeaderState()
   window.addEventListener('scroll', updateHeaderState, { passive: true })
 })
