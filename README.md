@@ -1,49 +1,43 @@
-# Documentation Les jeunes techniciens
+# Les Jeunes Techniciens
 
-## Qu'est-ce que ce projet ?
+## Description
 
-Ce projet est un site web construit avec Vue 3 et Vite. Il sert à présenter l'organisation étudiante Les jeunes techniciens, son fonctionnement, sa structure, sa vision, ses valeurs et son approche de développement de projets concrets au Cégep de Trois-Rivières.
+Ce projet est un site web vitrine en une seule page pour Les Jeunes Techniciens, une organisation étudiante en informatique qui offre des services techniques aux entreprises et aux particuliers.
 
-## Qui a créé le contrat pour ce projet ?
+Le site présente les services, des exemples de projets, la mission de l'organisation et un formulaire de contact.
 
-D'après la configuration actuelle du projet et le contenu du site (`<title>Les jeunes techniciens</title>`), ce projet semble avoir été créé pour Les jeunes techniciens.
+## Demandeur
 
-## Dépendances du projet
+Projet demandé par Les Jeunes Techniciens.
+
+## Dépendances
 
 - Node.js
 - npm
 - Vue 3
 - Vite
+- Tailwind CSS
 
-Installation recommandée :
+## Installation
 
 ```bash
 npm install
 ```
 
-## Comment exécuter le projet
-
-Pour lancer le site en local :
+## Construction
 
 ```bash
-npm run dev
-```
-
-Puis, ouvrez l'adresse suivante dans un navigateur :
-
-```text
-http://127.0.0.1:5173
+npm run build
 ```
 
 ## Contributeurs
-<table>
-	<tr>
-		<td align="center" width="33%">
-			<b>Les jeunes techniciens</b><br />
-			<i>Organisation présentée par le site</i><br />
-		</td>
-	</tr>
-</table>
 
-## État actuel du projet
-Le projet est actuellement en cours de construction.
+- Les Jeunes Techniciens
+
+## État actuel
+
+Site vitrine monopage fonctionnel, responsive et prêt pour intégration ou déploiement statique.
+
+## Licence
+
+Projet privé. Aucune licence open source n'est accordée sans autorisation explicite.

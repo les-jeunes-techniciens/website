@@ -1,12 +1,11 @@
 {
-  "name": "my-project-2",
+  "name": "les-jeunes-techniciens",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
