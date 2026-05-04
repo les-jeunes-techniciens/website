@@ -8,4 +8,7 @@ export default defineConfig({
     vue(),
     tailwindcss()
   ],
-})
+  server: {
+    port: process.ENV.port || 5173
+  }
+});
