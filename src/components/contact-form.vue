@@ -206,3 +206,84 @@ async function submitForm() {
     </p>
   </form>
 </template>
+
+<style scoped>
+.contact-form {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.45rem;
+  color: var(--deep);
+  font-weight: 800;
+  transition: color 320ms ease;
+}
+
+.animated-label-wrapper {
+  display: block;
+  min-height: 1.7rem;
+  overflow: hidden;
+}
+
+.label-swap-enter-active,
+.label-swap-leave-active {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.label-swap-enter-from {
+  opacity: 0;
+  transform: translateY(0.35rem);
+}
+
+.label-swap-leave-to {
+  opacity: 0;
+  transform: translateY(-0.35rem);
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+  color: var(--ink);
+  background: var(--field);
+  outline: none;
+  transition:
+    background-color 320ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    color 320ms ease;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(21, 207, 192, 0.14);
+}
+
+.contact-form [aria-invalid='true'] {
+  border-color: #d94343;
+}
+
+.field-error,
+.form-message {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: #b62929;
+}
+
+.form-message.is-success {
+  color: var(--green);
+}
+</style>

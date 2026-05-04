@@ -14,3 +14,13 @@ defineProps({
     <span>{{ project.technology }}</span>
   </article>
 </template>
+
+<style scoped>
+.project-card span {
+  display: inline-flex;
+  margin-top: 0.8rem;
+  color: var(--green);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+</style>

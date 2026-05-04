@@ -235,7 +235,6 @@ function attachTilt(card) {
     state.targetScale = liftScale
     card.style.setProperty('--cursor-x', `${(offsetX * 100).toFixed(2)}%`)
     card.style.setProperty('--cursor-y', `${(offsetY * 100).toFixed(2)}%`)
-    card.classList.add('is-tilting')
     ensureRunning()
   }
 
@@ -245,7 +244,6 @@ function attachTilt(card) {
     state.targetLift = 0
     state.targetScale = 1
     card.style.setProperty('--cursor-opacity', '0')
-    card.classList.remove('is-tilting')
     card.dispatchEvent(new CustomEvent('card-tracking-end', { bubbles: true }))
     ensureRunning()
   }
