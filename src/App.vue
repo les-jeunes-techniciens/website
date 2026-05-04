@@ -5,8 +5,9 @@ import ServiceCard from './components/service-card.vue'
 import SiteFooter from './components/site-footer.vue'
 import SiteNavbar from './components/site-navbar.vue'
 import useCursorTrail from './use-cursor-trail.js'
-
+import useScrollReveal from './use-scroll-reveal.js'
 useCursorTrail()
+useScrollReveal()
 
 const services = [
   {

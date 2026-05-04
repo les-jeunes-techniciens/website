@@ -4,6 +4,11 @@ import { onMounted, onUnmounted, ref } from 'vue'
 const isMenuOpen = ref(false)
 const hasScrolled = ref(false)
 const isDarkMode = ref(false)
+const isHeaderHidden = ref(true)
+
+const hideScrollThreshold = 220
+const cursorRevealThreshold = 90
+let lastCursorY = Infinity
 
 const navigationLinks = [
   { label: 'Accueil', href: '#accueil' },
@@ -44,8 +49,22 @@ function toggleTheme() {
   applyTheme()
 }
 
+function recomputeHeaderVisibility() {
+  if (isMenuOpen.value || window.scrollY <= hideScrollThreshold) {
+    isHeaderHidden.value = false
+    return
+  }
+  isHeaderHidden.value = lastCursorY > cursorRevealThreshold
+}
+
+function onMouseMove(event) {
+  lastCursorY = event.clientY
+  recomputeHeaderVisibility()
+}
+
 function updateHeaderState() {
   hasScrolled.value = window.scrollY > 12
+  recomputeHeaderVisibility()
 }
 
 onMounted(() => {
@@ -53,15 +72,18 @@ onMounted(() => {
   applyTheme(localStorage.getItem('theme') !== null)
   updateHeaderState()
   window.addEventListener('scroll', updateHeaderState, { passive: true })
+  window.addEventListener('mousemove', onMouseMove, { passive: true })
+  requestAnimationFrame(recomputeHeaderVisibility)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', updateHeaderState)
+  window.removeEventListener('mousemove', onMouseMove)
 })
 </script>
 
 <template>
-  <header :class="['site-header', { 'is-scrolled': hasScrolled }]">
+  <header :class="['site-header', { 'is-scrolled': hasScrolled, 'is-hidden': isHeaderHidden }]">
     <a class="brand" href="#accueil" @click="closeMenu">
       <span class="brand-mark">LJT</span>
       <span>Les Jeunes Techniciens</span>
@@ -100,4 +122,6 @@ onUnmounted(() => {
       </a>
     </nav>
   </header>
+
+  <span class="header-hint" :class="{ 'is-visible': isHeaderHidden }" aria-hidden="true"></span>
 </template>
