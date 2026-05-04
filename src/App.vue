@@ -4,8 +4,10 @@ import ProjectCard from './components/project-card.vue'
 import ServiceCard from './components/service-card.vue'
 import SiteFooter from './components/site-footer.vue'
 import SiteNavbar from './components/site-navbar.vue'
+import useCardTilt from './use-card-tilt.js'
 import useCursorTrail from './use-cursor-trail.js'
 import useScrollReveal from './use-scroll-reveal.js'
+useCardTilt()
 useCursorTrail()
 useScrollReveal()
 
