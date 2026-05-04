@@ -4,6 +4,9 @@ import ProjectCard from './components/project-card.vue'
 import ServiceCard from './components/service-card.vue'
 import SiteFooter from './components/site-footer.vue'
 import SiteNavbar from './components/site-navbar.vue'
+import useCursorTrail from './use-cursor-trail.js'
+
+useCursorTrail()
 
 const services = [
   {
