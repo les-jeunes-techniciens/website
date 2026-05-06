@@ -24,10 +24,10 @@ Projet demandé par Les Jeunes Techniciens.
 npm install
 ```
 
-## Construction
+## Lancement
 
 ```bash
-npm run build
+npm run dev
 ```
 
 ## Contributeurs
@@ -55,9 +55,4 @@ npm run build
 </table>
 
 ## État actuel
-
 Site vitrine monopage fonctionnel, responsive et prêt pour intégration ou déploiement statique.
-
-## Licence
-
-Projet privé. Aucune licence open source n'est accordée sans autorisation explicite.
