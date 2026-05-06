@@ -31,8 +31,28 @@ npm run build
 ```
 
 ## Contributeurs
-
-- Les Jeunes Techniciens
+<table>
+	<tr>
+		<td align="center" width="33.33%">
+			<img src="https://github.com/Name-shitty-github-profile.png" width="100px" style="border-radius:50%" /><br />
+			<b>Name</b><br />
+			<i>Créatrice & Développeuse principale</i><br />
+			<a href="https://github.com/Name-shitty-github-profile">GitHub</a>
+		</td>
+		<td align="center" width="33.33%">
+			<img src="https://github.com/Scornic25.png" width="100px" style="border-radius:50%" /><br />
+			<b>Etienne Mollot</b><br />
+			<i>Développeur</i><br />
+			<a href="https://github.com/Scornic25">GitHub</a>
+		</td>
+        <td align="center" width="33.33%">
+			<img src="https://github.com/CodeCrateDev.png" width="100px" style="border-radius:50%" /><br />
+			<b>CodeCrate</b><br />
+			<i>Contributeur</i><br />
+			<a href="https://github.com/CodeCrateDev">GitHub</a>
+		</td>
+    </tr>
+</table>
 
 ## État actuel
 
