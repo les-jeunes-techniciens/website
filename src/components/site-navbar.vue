@@ -13,7 +13,7 @@ let lastCursorY = Infinity
 const navigationLinks = [
   { label: 'Accueil', href: '#accueil' },
   { label: 'Services', href: '#services' },
-  { label: 'Projets', href: '#projets' },
+  { label: 'Solutions', href: '#solutions' },
   { label: 'À propos', href: '#a-propos' },
   { label: 'Contact', href: '#contact' },
 ]

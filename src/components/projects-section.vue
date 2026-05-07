@@ -3,49 +3,49 @@ import ProjectCard from './project-card.vue'
 
 const projects = [
   {
-    title: 'Agents d’automatisation IA pour entreprises',
+    title: 'Site web vitrine',
     description:
-      'Des agents intelligents pour accélérer le support, analyser les données, détecter les anomalies et automatiser les réponses de façon sécurisée.',
-    technology: 'Python, OpenAI API, Node.js, SQL, PowerShell, cybersécurité',
+      'Création d’un site simple, moderne et responsive pour présenter une entreprise, un service ou un projet.',
+    technology: 'HTML, CSS, JavaScript, React, SEO de base',
   },
   {
-    title: 'Infrastructure et déploiement de postes',
+    title: 'Automatisation de tâches',
     description:
-      'Des environnements informatiques prêts à l’emploi pour entreprises, équipes et laboratoires: postes optimisés, réseau, sécurité et gestion de base.',
-    technology: 'Windows, Linux, Active Directory, virtualisation, hardware',
+      'Mise en place de petits systèmes pour automatiser des actions répétitives comme les formulaires, les courriels, les suivis ou l’organisation de données.',
+    technology: 'Python, JavaScript, API, Google Sheets, outils no-code',
   },
   {
-    title: 'Plateforme de formation en cybersécurité',
+    title: 'Diagnostic cybersécurité',
     description:
-      'Une expérience web interactive pour sensibiliser vos équipes au phishing, à la sécurité réseau, à l’éthique hacker et aux bons réflexes numériques.',
-    technology: 'React, Node.js, SQL, Python, OWASP',
+      'Analyse de base des pratiques numériques pour aider une organisation à mieux comprendre ses risques et améliorer ses habitudes.',
+    technology: 'MFA, bonnes pratiques, phishing, gestion des accès',
   },
   {
-    title: 'Sites web sécurisés et API',
+    title: 'Support et configuration informatique',
     description:
-      'Des sites modernes avec des API solides pour gérer les accès, protéger les données et offrir une expérience rapide, claire et professionnelle.',
-    technology: 'TypeScript, Express, FastAPI, Django, SQL, JWT, OAuth',
+      'Aide pour installer, configurer, optimiser ou entretenir des postes informatiques selon les besoins.',
+    technology: 'Windows, Linux, matériel, logiciels, configuration',
   },
   {
-    title: 'Applications mobiles et desktop',
+    title: 'Outil interne simple',
     description:
-      'Des applications utiles pour piloter les tâches, centraliser les suivis, gérer les clients ou créer des tableaux de bord adaptés à vos opérations.',
-    technology: 'Kotlin, Swift, C#, Flutter, React Native, SQL',
+      'Création d’un outil léger pour aider une équipe à mieux gérer ses informations, ses clients, ses suivis ou ses tâches.',
+    technology: 'React, Node.js, SQL, Google Workspace, API',
   },
   {
-    title: 'Système de gestion intelligent',
+    title: 'Mandat personnalisé',
     description:
-      'Une plateforme complète pour structurer l’inventaire, les employés, les projets et les rapports automatisés avec l’appui de l’IA.',
-    technology: 'Python, TypeScript, React, Vue.js, Node.js, PostgreSQL, REST',
+      'Chaque besoin est différent. Nous pouvons analyser votre demande et proposer une solution réaliste selon nos compétences et nos disponibilités.',
+    technology: 'Web, automatisation, support, données, documentation',
   },
 ]
 </script>
 
 <template>
-  <section id="projets" class="page-section">
+  <section id="solutions" class="page-section">
     <div class="section-heading reveal">
-      <p class="section-kicker">Projets</p>
-      <h2>Des solutions prêtes à créer de la valeur pour vos opérations.</h2>
+      <p class="section-kicker">PROJETS POSSIBLES</p>
+      <h2>Des idées concrètes que nous pouvons développer selon vos besoins.</h2>
     </div>
 
     <div class="projects-grid">

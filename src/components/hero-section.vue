@@ -1,22 +1,24 @@
 <template>
   <section id="accueil" class="hero-section">
     <div class="hero-content reveal">
-      <p class="section-kicker">Organisation étudiante en informatique</p>
-      <h1>Des services techniques sérieux, humains et orientés résultats.</h1>
+      <p class="section-kicker">ORGANISATION ÉTUDIANTE EN INFORMATIQUE</p>
+      <h1>Des solutions informatiques concrètes pour entreprises et particuliers.</h1>
       <p>
         Les Jeunes Techniciens accompagnent les entreprises et les particuliers avec
-        des solutions concrètes en cybersécurité, automatisation, web et support
+        des services accessibles en cybersécurité, automatisation, sites web et support
         informatique.
       </p>
-      <a class="primary-button" href="#contact">Nous contacter</a>
+      <div class="hero-actions">
+        <a class="primary-button" href="#contact">Nous contacter</a>
+        <a class="secondary-button" href="#services">Voir nos services</a>
+      </div>
     </div>
 
     <div class="hero-panel reveal delay-one">
-      <span>Approche</span>
-      <strong>Stratégie claire, exécution rapide, impact mesurable.</strong>
+      <span>NOTRE APPROCHE</span>
+      <strong>Simple, clair et orienté action.</strong>
       <p>
-        Nous transformons vos besoins en actions concrètes pour renforcer votre
-        présence, optimiser vos processus et générer des résultats.
+        On prend le temps de comprendre votre besoin, puis on propose une solution réaliste, adaptée et livrable.
       </p>
     </div>
   </section>

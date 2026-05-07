@@ -8,8 +8,7 @@ import ContactForm from './contact-form.vue'
       <p class="section-kicker">Contact</p>
       <h2>Parlez-nous de votre besoin.</h2>
       <p>
-        Une demande claire reçoit une réponse claire. Décrivez votre projet, votre
-        problème ou l’aide recherchée.
+        Décrivez votre projet, votre problème ou l’aide recherchée. Nous analyserons votre demande et vous répondrons avec une approche simple et réaliste.
       </p>
     </div>
 

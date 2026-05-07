@@ -3,36 +3,52 @@ import ServiceCard from './service-card.vue'
 
 const services = [
   {
-    category: 'Cybersécurité B2B',
-    title: 'Sécuriser vos opérations',
+    category: 'CYBERSÉCURITÉ B2B',
+    title: 'Renforcer vos bases de sécurité',
     description:
-      'Nous aidons les organisations à identifier les risques, renforcer leurs systèmes et sensibiliser leurs équipes.',
-    items: ['Audit de sécurité', 'Protection des systèmes', 'Sensibilisation'],
-  },
-  {
-    category: 'IA & automatisation B2B',
-    title: 'Gagner du temps avec des outils intelligents',
-    description:
-      'Nous automatisons les tâches répétitives et améliorons les processus avec des solutions simples à adopter.',
+      'Nous aidons les organisations à identifier les risques simples, améliorer leurs pratiques et sensibiliser leurs équipes aux bonnes habitudes numériques.',
     items: [
-      'Automatisation de tâches',
-      'Optimisation de processus',
-      'Intégration d’outils intelligents',
+      'Diagnostic de sécurité de base',
+      'Sensibilisation au phishing',
+      'Vérification des accès et mots de passe',
+      'Mise en place de bonnes pratiques',
     ],
   },
   {
-    category: 'Services informatiques',
-    title: 'Accompagner les particuliers',
+    category: 'IA & AUTOMATISATION B2B',
+    title: 'Automatiser les tâches répétitives',
     description:
-      'Nous offrons un soutien technique clair, accessible et adapté aux besoins quotidiens.',
-    items: ['Montage PC', 'Installation Windows', 'Entretien et optimisation', 'Support technique'],
+      'Nous créons des solutions simples pour aider les entreprises à gagner du temps, réduire les tâches manuelles et mieux organiser leurs processus.',
+    items: [
+      'Automatisation de tâches',
+      'Formulaires intelligents',
+      'Assistants IA simples',
+      'Optimisation de processus',
+    ],
   },
   {
-    category: 'Mandats complémentaires',
-    title: 'Créer des solutions sur mesure',
+    category: 'SERVICES INFORMATIQUES',
+    title: 'Support technique accessible',
     description:
-      'Nous réalisons des projets personnalisés pour répondre à des besoins précis et concrets.',
-    items: ['Création de sites web', 'Projets personnalisés', 'Création de contenu numérique'],
+      'Nous offrons un soutien technique clair et pratique pour les besoins informatiques du quotidien.',
+    items: [
+      'Montage et démontage de PC',
+      'Installation Windows / OS',
+      'Nettoyage et entretien',
+      'Optimisation et support de base',
+    ],
+  },
+  {
+    category: 'MANDATS COMPLÉMENTAIRES',
+    title: 'Des projets adaptés à vos besoins',
+    description:
+      'Selon le projet, nous pouvons aussi réaliser des mandats informatiques réalistes liés au web, aux outils internes et au développement.',
+    items: [
+      'Sites web vitrines',
+      'Outils internes simples',
+      'Applications ou scripts utiles',
+      'Projets personnalisés',
+    ],
   },
 ]
 </script>
@@ -40,8 +56,8 @@ const services = [
 <template>
   <section id="services" class="page-section">
     <div class="section-heading reveal">
-      <p class="section-kicker">Services</p>
-      <h2>Une offre lisible pour passer rapidement à l’action.</h2>
+      <p class="section-kicker">SERVICES</p>
+      <h2>Une offre claire pour répondre à vos besoins informatiques.</h2>
     </div>
 
     <div class="services-grid">

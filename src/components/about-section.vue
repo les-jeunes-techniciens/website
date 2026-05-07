@@ -2,9 +2,9 @@
 const values = ['Transparence', 'Simplicité', 'Orientation résultats']
 
 const proofPoints = [
-  'Une équipe encadrée, motivée et orientée performance',
-  'Des solutions pensées pour attirer, convaincre et convertir',
-  'Une communication simple, rapide et transparente',
+  'Une équipe motivée et encadrée',
+  'Des solutions simples et adaptées',
+  'Une communication claire et transparente',
 ]
 </script>
 
@@ -12,26 +12,21 @@ const proofPoints = [
   <section id="a-propos" class="about-section page-section">
     <div class="section-heading reveal">
       <p class="section-kicker">À propos</p>
-      <h2>Une équipe étudiante avec l’énergie d’une startup et le sérieux d’un partenaire.</h2>
+      <h2>Une équipe étudiante motivée, encadrée et prête à apprendre par des projets réels.</h2>
     </div>
 
     <div class="about-grid">
       <div class="about-copy">
         <p>
-          Les Jeunes Techniciens donnent aux entreprises et aux particuliers accès à
-          une relève motivée, curieuse et concrète. Notre force: transformer les idées
-          en solutions utiles, avec une approche claire, humaine et orientée résultats.
+          Les Jeunes Techniciens est un projet étudiant en informatique qui vise à offrir des services concrets aux entreprises et aux particuliers, tout en permettant aux étudiants de développer leur expérience sur des mandats réels.
         </p>
         <p>
-          Chaque mandat est pensé pour créer un impact visible: mieux présenter
-          votre offre, simplifier vos opérations, augmenter votre efficacité et
-          soutenir votre croissance. Nous travaillons comme une jeune entreprise:
-          rapidement, simplement et avec le souci de bien faire.
+          Notre approche est simple : comprendre le besoin, proposer une solution réaliste et livrer un travail clair, utile et bien structuré. Chaque mandat est une occasion d’apprendre, de collaborer et de créer une valeur concrète.
         </p>
       </div>
 
       <div class="about-card">
-        <h3>Pourquoi travailler avec nous?</h3>
+        <h3>Pourquoi travailler avec nous ?</h3>
         <ul>
           <li v-for="proofPoint in proofPoints" :key="proofPoint">{{ proofPoint }}</li>
         </ul>

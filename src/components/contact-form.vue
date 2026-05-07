@@ -4,18 +4,26 @@ import { computed, reactive, ref } from 'vue'
 const serviceTypes = [
   'Cybersécurité',
   'IA & automatisation',
+  'Site web',
   'Services informatiques',
-  'Création de sites web',
-  'Projets personnalisés',
-  'Mandats sur mesure',
-  'Autre',
+  'Autre mandat',
+]
+
+const budgetOptions = [
+  'Moins de 500 $',
+  '500 $ à 1 000 $',
+  '1 000 $ à 2 500 $',
+  '2 500 $ et plus',
+  'À discuter',
 ]
 
 const form = reactive({
   name: '',
   email: '',
+  phone: '',
   clientType: '',
   serviceType: '',
+  budget: '',
   message: '',
 })
 
@@ -24,6 +32,7 @@ const touchedFields = reactive({
   email: false,
   clientType: false,
   serviceType: false,
+  budget: false,
   message: false,
 })
 
@@ -53,6 +62,7 @@ const validationErrors = computed(() => ({
     touchedFields.clientType && !form.clientType ? 'Sélectionnez un type de client.' : '',
   serviceType:
     touchedFields.serviceType && !form.serviceType ? 'Sélectionnez un type de service.' : '',
+  budget: touchedFields.budget && !form.budget ? 'Sélectionnez un budget.' : '',
   message: touchedFields.message && !form.message.trim() ? 'Le message est requis.' : '',
 }))
 
@@ -62,6 +72,7 @@ const isFormValid = computed(
     isEmailValid.value &&
     form.clientType &&
     form.serviceType &&
+    form.budget &&
     form.message.trim(),
 )
 
@@ -72,13 +83,16 @@ function markFieldTouched(fieldName) {
 function resetForm() {
   form.name = ''
   form.email = ''
+  form.phone = ''
   form.clientType = ''
   form.serviceType = ''
+  form.budget = ''
   form.message = ''
   touchedFields.name = false
   touchedFields.email = false
   touchedFields.clientType = false
   touchedFields.serviceType = false
+  touchedFields.budget = false
   touchedFields.message = false
 }
 
@@ -87,6 +101,7 @@ async function submitForm() {
   touchedFields.email = true
   touchedFields.clientType = true
   touchedFields.serviceType = true
+  touchedFields.budget = true
   touchedFields.message = true
   statusMessage.value = ''
   hasSubmittedSuccessfully.value = false
@@ -98,8 +113,10 @@ async function submitForm() {
   const contactPayload = {
     name: form.name.trim(),
     email: form.email.trim(),
+    phone: form.phone.trim(),
     clientType: form.clientType,
     serviceType: form.serviceType,
+    budget: form.budget,
     message: form.message.trim(),
   }
 
@@ -145,6 +162,11 @@ async function submitForm() {
     </label>
 
     <label>
+      Téléphone (optionnel)
+      <input v-model="form.phone" name="phone" type="tel" autocomplete="tel" />
+    </label>
+
+    <label>
       Type de client
       <select
         v-model="form.clientType"
@@ -155,6 +177,7 @@ async function submitForm() {
         <option value="" disabled>Choisir une option</option>
         <option value="Entreprise">Entreprise</option>
         <option value="Particulier">Particulier</option>
+        <option value="Projet interne / cégep">Projet interne / cégep</option>
       </select>
       <span v-if="validationErrors.clientType" class="field-error">
         {{ validationErrors.clientType }}
@@ -176,6 +199,24 @@ async function submitForm() {
       </select>
       <span v-if="validationErrors.serviceType" class="field-error">
         {{ validationErrors.serviceType }}
+      </span>
+    </label>
+
+    <label>
+      Budget approximatif
+      <select
+        v-model="form.budget"
+        name="budget"
+        :aria-invalid="Boolean(validationErrors.budget)"
+        @blur="markFieldTouched('budget')"
+      >
+        <option value="" disabled>Choisir une option</option>
+        <option v-for="option in budgetOptions" :key="option" :value="option">
+          {{ option }}
+        </option>
+      </select>
+      <span v-if="validationErrors.budget" class="field-error">
+        {{ validationErrors.budget }}
       </span>
     </label>
 
