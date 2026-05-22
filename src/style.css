@@ -4,58 +4,35 @@
 /* --- Tokens --- */
 
 :root {
-  font-family: 'Manrope', system-ui, sans-serif;
-  color: #10231f;
-  background: #f5f1e8;
-  color-scheme: light;
+  font-family: Manrope, system-ui, sans-serif;
+  color: #f5fbf8;
+  background: #050b09;
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --green: #12a66f;
-  --turquoise: #15cfc0;
-  --accent-soft: rgba(21, 207, 192, 0.13);
-  --page-background: #f5f1e8;
-  --page-background-end: #fbfaf5;
-  --deep: #062f2a;
-  --ink: #10231f;
-  --muted: #61706b;
-  --line: rgba(6, 47, 42, 0.12);
-  --line-strong: rgba(6, 47, 42, 0.18);
-  --surface: rgba(255, 252, 244, 0.78);
-  --surface-strong: rgba(255, 252, 244, 0.92);
-  --field: rgba(255, 255, 255, 0.84);
-  --header: rgba(255, 252, 244, 0.62);
-  --header-strong: rgba(255, 252, 244, 0.88);
-  --shadow: 0 24px 70px rgba(6, 47, 42, 0.12);
-  --shadow-strong: 0 34px 90px rgba(6, 47, 42, 0.16);
+  --primary: #34d399; /* Mint Pulse */
+  --primary-dark: #10b981;
+  --secondary: #f59e0b; /* Amber Dot */
+  --accent-soft: rgba(52, 211, 153, 0.12);
+  --page-background: #050b09; /* Abyss */
+  --page-background-end: #0a1410; /* Pine Deep */
+  --deep: #f5fbf8; /* Bone White */
+  --ink: #f5fbf8; 
+  --muted: #9db5a8; /* Sage Mist */
+  --line: #1f3a30; /* Pine Line */
+  --line-strong: rgba(31, 58, 48, 0.6);
+  --surface: #0a1410; /* Pine Deep */
+  --surface-strong: #112821; /* Forest Veil */
+  --field: #112821;
+  --header: rgba(5, 11, 9, 0.75);
+  --header-strong: rgba(5, 11, 9, 0.95);
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  --shadow-strong: 0 30px 70px rgba(0, 0, 0, 0.8);
 }
 
-:root[data-theme='dark'] {
-  color: #effffb;
-  background: #071412;
-  color-scheme: dark;
-  --green: #41e19d;
-  --turquoise: #31e6d8;
-  --accent-soft: rgba(49, 230, 216, 0.15);
-  --page-background: #071412;
-  --page-background-end: #0d211d;
-  --deep: #f1fffb;
-  --ink: #e9fff9;
-  --muted: #a6c3ba;
-  --line: rgba(201, 255, 241, 0.12);
-  --line-strong: rgba(201, 255, 241, 0.2);
-  --surface: rgba(13, 33, 29, 0.76);
-  --surface-strong: rgba(15, 40, 35, 0.9);
-  --field: rgba(8, 24, 21, 0.86);
-  --header: rgba(8, 24, 21, 0.58);
-  --header-strong: rgba(10, 30, 27, 0.9);
-  --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
-  --shadow-strong: 0 34px 90px rgba(0, 0, 0, 0.42);
-}
-
-/* --- Reset & base --- */
-
+/* Base resets & Body pattern */
 * {
   box-sizing: border-box;
 }
@@ -63,17 +40,20 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
-  transition: background-color 320ms ease, color 320ms ease;
 }
 
 body {
   min-width: 320px;
   margin: 0;
-  background:
-    radial-gradient(circle at 14% 8%, rgba(21, 207, 192, 0.18), transparent 30rem),
-    radial-gradient(circle at 88% 18%, rgba(18, 166, 111, 0.15), transparent 28rem),
-    linear-gradient(180deg, var(--page-background) 0%, var(--page-background-end) 100%);
-  transition: background 420ms ease, color 320ms ease;
+  color: var(--ink);
+  background-color: var(--page-background);
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(52, 211, 153, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(245, 158, 11, 0.05) 0%, transparent 40%),
+    linear-gradient(rgba(245, 251, 248, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 251, 248, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+  transition: background 420ms ease;
 }
 
 a {
@@ -104,7 +84,8 @@ h1,
 h2,
 h3 {
   color: var(--deep);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
+  font-weight: 900;
   transition: color 320ms ease;
 }
 
@@ -137,6 +118,13 @@ li {
 
 /* --- Layout --- */
 
+main, 
+.site-header, 
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
 main {
   width: min(1120px, calc(100% - 2rem));
   margin: 0 auto;
@@ -149,8 +137,6 @@ main {
 
 /* --- Glass card base --- */
 
-.hero-content,
-.hero-panel,
 .service-card,
 .project-card,
 .contact-form,
@@ -171,8 +157,6 @@ main {
     transform 200ms ease;
 }
 
-:root[data-theme='dark'] .hero-content,
-:root[data-theme='dark'] .hero-panel,
 :root[data-theme='dark'] .service-card,
 :root[data-theme='dark'] .project-card,
 :root[data-theme='dark'] .contact-form,
@@ -216,7 +200,7 @@ main {
 .section-kicker,
 .hero-panel span {
   margin: 0 0 1rem;
-  color: var(--green);
+  color: var(--primary);
   font-size: 0.76rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -230,15 +214,15 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.15rem;
-  padding: 0.9rem 1.4rem;
+  min-height: 3.5rem;
+  padding: 0.9rem 2.25rem;
   overflow: hidden;
-  border-radius: 999px;
+  border-radius: 12px;
   color: #ffffff;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--green), var(--turquoise));
-  box-shadow: 0 18px 34px rgba(21, 207, 192, 0.26);
-  transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+  background: var(--primary);
+  box-shadow: 0 10px 20px rgba(52, 211, 153, 0.3);
+  transition: all 200ms ease;
 }
 
 .primary-button::before {
@@ -256,7 +240,7 @@ main {
 
 .primary-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 24px 42px rgba(21, 207, 192, 0.34);
+  box-shadow: 0 18px 36px rgba(37, 99, 235, 0.28);
 }
 
 .primary-button:hover::before {
@@ -362,8 +346,6 @@ main {
     font-size: clamp(2.65rem, 14vw, 4rem);
   }
 
-  .hero-content,
-  .hero-panel,
   .service-card,
   .project-card,
   .contact-form,

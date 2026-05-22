@@ -1,13 +1,22 @@
 <script setup>
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
+import { store } from '../store'
 
 const serviceTypes = [
-  'Cybersécurité',
-  'IA & automatisation',
-  'Site web',
-  'Services informatiques',
-  'Autre mandat',
+  'Conception Logicielle',
+  'Composants Matériels',
+  'Support & Assistance',
+  'Sécurité Numérique',
+  'Automatisation & IA',
+  'Développement Web',
 ]
+
+// Sync with store
+watch(() => store.selectedService, (newVal) => {
+  if (newVal) {
+    form.serviceType = newVal
+  }
+})
 
 const budgetOptions = [
   'Moins de 500 $',
@@ -22,7 +31,7 @@ const form = reactive({
   email: '',
   phone: '',
   clientType: '',
-  serviceType: '',
+  serviceType: store.selectedService || '',
   budget: '',
   message: '',
 })
@@ -184,7 +193,7 @@ async function submitForm() {
       </span>
     </label>
 
-    <label>
+    <label id="service-selection-field">
       Type de service
       <select
         v-model="form.serviceType"
@@ -294,6 +303,11 @@ async function submitForm() {
   color: var(--ink);
   background: var(--field);
   outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.25rem;
   transition:
     background-color 320ms ease,
     border-color 200ms ease,
@@ -301,30 +315,36 @@ async function submitForm() {
     color 320ms ease;
 }
 
+.contact-form input,
 .contact-form textarea {
-  resize: vertical;
+  background-image: none;
+}
+
+.contact-form option {
+  background: #1a1a1a;
+  color: #ffffff;
 }
 
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 4px rgba(21, 207, 192, 0.14);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(240, 81, 81, 0.12);
 }
 
 .contact-form [aria-invalid='true'] {
-  border-color: #d94343;
+  border-color: #ef4444;
 }
 
 .field-error,
 .form-message {
   margin: 0;
   font-size: 0.86rem;
-  font-weight: 800;
-  color: #b62929;
+  font-weight: 700;
+  color: #ef4444;
 }
 
 .form-message.is-success {
-  color: var(--green);
+  color: var(--primary);
 }
 </style>

@@ -18,15 +18,25 @@ import ContactForm from './contact-form.vue'
 
 <style scoped>
 .contact-section {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1fr);
-  gap: 1.25rem;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  text-align: center;
 }
 
-@media (max-width: 900px) {
-  .contact-section {
-    grid-template-columns: 1fr;
-  }
+.contact-section .section-heading {
+  max-width: 800px;
+}
+
+.contact-section .section-heading p:not(.section-kicker) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 720px;
+  text-align: left; /* Keep form labels left-aligned for usability */
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <footer class="site-footer">
-    <p>Les Jeunes Techniciens</p>
-    <p>Solutions informatiques étudiantes pour entreprises et particuliers.</p>
+    <p>© 2026 Les Jeunes Techniciens</p>
+    <p>Expertise numérique étudiante au service de votre performance.</p>
   </footer>
 </template>
 

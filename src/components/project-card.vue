@@ -19,7 +19,7 @@ defineProps({
 .project-card span {
   display: inline-flex;
   margin-top: 0.8rem;
-  color: var(--green);
+  color: var(--primary);
   font-size: 0.86rem;
   font-weight: 800;
 }

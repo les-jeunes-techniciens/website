@@ -1,32 +1,32 @@
 <script setup>
-const values = ['Transparence', 'Simplicité', 'Orientation résultats']
+const values = ['Excellence', 'Rigueur', 'Transparence']
 
 const proofPoints = [
-  'Une équipe motivée et encadrée',
-  'Des solutions simples et adaptées',
-  'Une communication claire et transparente',
+  'Encadrement professionnel rigoureux',
+  'Méthodologies éprouvées et sécurisées',
+  'Accompagnement personnalisé et réactif',
 ]
 </script>
 
 <template>
   <section id="a-propos" class="about-section page-section">
     <div class="section-heading reveal">
-      <p class="section-kicker">À propos</p>
-      <h2>Une équipe étudiante motivée, encadrée et prête à apprendre par des projets réels.</h2>
+      <p class="section-kicker">Notre Vision</p>
+      <h2>L'alliance de l'innovation étudiante et de la rigueur professionnelle.</h2>
     </div>
 
     <div class="about-grid">
       <div class="about-copy">
         <p>
-          Les Jeunes Techniciens est un projet étudiant en informatique qui vise à offrir des services concrets aux entreprises et aux particuliers, tout en permettant aux étudiants de développer leur expérience sur des mandats réels.
+          Les Jeunes Techniciens est une initiative qui mobilise les meilleurs talents étudiants en informatique pour répondre aux besoins technologiques du marché. Nous offrons une expertise moderne, encadrée par des standards de qualité élevés.
         </p>
         <p>
-          Notre approche est simple : comprendre le besoin, proposer une solution réaliste et livrer un travail clair, utile et bien structuré. Chaque mandat est une occasion d’apprendre, de collaborer et de créer une valeur concrète.
+          Notre mission est double : fournir des résultats tangibles à nos clients tout en forgeant l'expérience de la prochaine génération d'experts. Cette symbiose nous permet de proposer des solutions innovantes, fiables et à forte valeur ajoutée.
         </p>
       </div>
 
       <div class="about-card">
-        <h3>Pourquoi travailler avec nous ?</h3>
+        <h3>Pourquoi nous faire confiance ?</h3>
         <ul>
           <li v-for="proofPoint in proofPoints" :key="proofPoint">{{ proofPoint }}</li>
         </ul>
@@ -35,8 +35,8 @@ const proofPoints = [
 
     <div class="values-row">
       <div>
-        <p class="section-kicker">Nos valeurs</p>
-        <p>Un cadre simple pour créer une relation de confiance dès le premier échange.</p>
+        <p class="section-kicker">Nos Fondements</p>
+        <p>Des principes solides pour bâtir une relation de partenariat durable.</p>
       </div>
       <div class="values-list">
         <span v-for="value in values" :key="value">{{ value }}</span>
@@ -99,7 +99,7 @@ const proofPoints = [
   width: 0.45rem;
   height: 0.45rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--green), var(--turquoise));
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
 }
 
 .values-row {

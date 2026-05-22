@@ -1,71 +1,138 @@
 <template>
   <section id="accueil" class="hero-section">
-    <div class="hero-content reveal">
-      <p class="section-kicker">ORGANISATION ÉTUDIANTE EN INFORMATIQUE</p>
-      <h1>Des solutions informatiques concrètes pour entreprises et particuliers.</h1>
-      <p>
-        Les Jeunes Techniciens accompagnent les entreprises et les particuliers avec
-        des services accessibles en cybersécurité, automatisation, sites web et support
-        informatique.
-      </p>
-      <div class="hero-actions">
-        <a class="primary-button" href="#contact">Nous contacter</a>
-        <a class="secondary-button" href="#services">Voir nos services</a>
+    <div class="hero-container">
+      <div class="hero-content reveal">
+        <p class="section-kicker hero-kicker">Software development</p>
+        <h1>CONCEPTION DE SOLUTIONS LOGICIELLES</h1>
+        <p>
+          Nous accompagnons votre croissance avec des solutions numériques innovantes, 
+          alliant cybersécurité de pointe et automatisation intelligente.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-button" href="#contact">Démarrer un projet</a>
+          <a class="hero-secondary" href="#services">
+            <span class="play-icon">▶</span> Voir nos services
+          </a>
+        </div>
       </div>
-    </div>
 
-    <div class="hero-panel reveal delay-one">
-      <span>NOTRE APPROCHE</span>
-      <strong>Simple, clair et orienté action.</strong>
-      <p>
-        On prend le temps de comprendre votre besoin, puis on propose une solution réaliste, adaptée et livrable.
-      </p>
+      <div class="hero-illustration reveal delay-one">
+        <img src="/isometric_software_developer.png" alt="Software Development Illustration" />
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
 .hero-section {
-  padding: clamp(3.5rem, 8vw, 6rem) 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-  gap: 1.25rem;
+  padding: clamp(5rem, 12vw, 10rem) 0;
+  min-height: 90vh;
+  display: flex;
   align-items: center;
-  min-height: calc(100vh - 7rem);
 }
 
-.hero-content {
-  padding: clamp(1.65rem, 4vw, 3.2rem);
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
 }
 
-.hero-panel {
-  padding: clamp(1.35rem, 3vw, 2rem);
-}
-
-.hero-panel strong {
+.hero-kicker {
+  margin-bottom: 1.5rem !important;
   display: block;
-  margin-bottom: 1rem;
-  color: var(--deep);
-  font-size: clamp(1.8rem, 3vw, 2.55rem);
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-  transition: color 320ms ease;
 }
 
-.hero-panel p {
-  margin-bottom: 0;
+.hero-content h1 {
+  font-size: clamp(2.5rem, 5.5vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 2rem;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--deep);
 }
 
 .hero-content p:not(.section-kicker) {
-  max-width: 690px;
-  margin-bottom: 2rem;
-  font-size: 1.08rem;
+  font-size: 1.2rem;
+  color: var(--muted);
+  max-width: 580px;
+  margin-bottom: 3rem;
+  line-height: 1.6;
 }
 
-@media (max-width: 900px) {
-  .hero-section {
+.hero-illustration img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.hero-secondary {
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  transition: transform 200ms ease, color 200ms ease;
+}
+
+.hero-secondary:hover {
+  color: var(--secondary);
+  transform: translateX(8px);
+}
+
+.play-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid var(--secondary);
+  border-radius: 50%;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  transition: background 200ms ease;
+}
+
+.hero-secondary:hover .play-icon {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+@media (max-width: 1024px) {
+  .hero-container {
     grid-template-columns: 1fr;
-    min-height: auto;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .hero-content p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-illustration {
+    max-width: 500px;
+    margin: 0 auto;
   }
 }
 </style>

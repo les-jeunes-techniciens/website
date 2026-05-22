@@ -89,7 +89,6 @@ export default function useScrollReveal() {
   }
 
   onMounted(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const targets = Array.from(document.querySelectorAll(revealSelector))
     if (targets.length === 0) return
     assignDirections(targets)

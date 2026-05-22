@@ -6,13 +6,11 @@ import ProjectsSection from './components/projects-section.vue'
 import ServicesSection from './components/services-section.vue'
 import SiteFooter from './components/site-footer.vue'
 import SiteNavbar from './components/site-navbar.vue'
-import useCardTilt from './use-card-tilt.js'
-import useCursorTrail from './use-cursor-trail.js'
 import useScrollReveal from './use-scroll-reveal.js'
+import useCursorGrid from './cursor-grid.js'
 
-useCardTilt()
-useCursorTrail()
 useScrollReveal()
+useCursorGrid()
 </script>
 
 <template>

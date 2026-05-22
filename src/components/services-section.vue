@@ -3,51 +3,75 @@ import ServiceCard from './service-card.vue'
 
 const services = [
   {
-    category: 'CYBERSÉCURITÉ B2B',
-    title: 'Renforcer vos bases de sécurité',
+    category: 'Conception Logicielle',
+    title: 'Architectures logicielles sur mesure',
     description:
-      'Nous aidons les organisations à identifier les risques simples, améliorer leurs pratiques et sensibiliser leurs équipes aux bonnes habitudes numériques.',
+      'Conception de systèmes robustes, évolutifs et adaptés à vos flux de travail spécifiques.',
     items: [
-      'Diagnostic de sécurité de base',
-      'Sensibilisation au phishing',
-      'Vérification des accès et mots de passe',
-      'Mise en place de bonnes pratiques',
+      'Analyse de besoins et architecture',
+      'Développement d\'applications métiers',
+      'Optimisation de code source',
+      'Maintenance logicielle proactive',
     ],
   },
   {
-    category: 'IA & AUTOMATISATION B2B',
-    title: 'Automatiser les tâches répétitives',
+    category: 'Composants Matériels',
+    title: 'Expertise Hardware & Infrastructure',
     description:
-      'Nous créons des solutions simples pour aider les entreprises à gagner du temps, réduire les tâches manuelles et mieux organiser leurs processus.',
+      'Conseil et intégration de matériel informatique de pointe pour optimiser vos performances.',
     items: [
-      'Automatisation de tâches',
-      'Formulaires intelligents',
-      'Assistants IA simples',
-      'Optimisation de processus',
+      'Sélection de composants critiques',
+      'Assemblage de stations de travail',
+      'Diagnostic de performance hardware',
+      'Mises à niveau d\'infrastructure',
     ],
   },
   {
-    category: 'SERVICES INFORMATIQUES',
-    title: 'Support technique accessible',
+    category: 'Support & Assistance',
+    title: 'Support technique, appels et aide',
     description:
-      'Nous offrons un soutien technique clair et pratique pour les besoins informatiques du quotidien.',
+      'Une assistance directe et réactive pour résoudre vos défis techniques au quotidien.',
     items: [
-      'Montage et démontage de PC',
-      'Installation Windows / OS',
-      'Nettoyage et entretien',
-      'Optimisation et support de base',
+      'Ligne de support téléphonique',
+      'Prise en main à distance sécurisée',
+      'Assistance utilisateur immédiate',
+      'Résolution d\'incidents critiques',
     ],
   },
   {
-    category: 'MANDATS COMPLÉMENTAIRES',
-    title: 'Des projets adaptés à vos besoins',
+    category: 'Sécurité Numérique',
+    title: 'Protection de vos actifs numériques',
     description:
-      'Selon le projet, nous pouvons aussi réaliser des mandats informatiques réalistes liés au web, aux outils internes et au développement.',
+      'Des protocoles de sécurité avancés pour garantir l\'intégrité de vos données.',
     items: [
-      'Sites web vitrines',
-      'Outils internes simples',
-      'Applications ou scripts utiles',
-      'Projets personnalisés',
+      'Audit de sécurité complet',
+      'Gestion sécurisée des accès',
+      'Sensibilisation cyber-menaces',
+      'Plans de reprise d\'activité',
+    ],
+  },
+  {
+    category: 'Automatisation & IA',
+    title: 'Optimisation par l\'intelligence artificielle',
+    description:
+      'Intégration de solutions IA pour automatiser vos processus et gagner en productivité.',
+    items: [
+      'Automatisation de flux de travail',
+      'Intégration de modèles IA',
+      'Scripts d\'optimisation',
+      'Analyse de données intelligente',
+    ],
+  },
+  {
+    category: 'Développement Web',
+    title: 'Expériences numériques premium',
+    description:
+      'Conception de sites et applications web modernes, performants et orientés utilisateur.',
+    items: [
+      'Sites vitrines haute performance',
+      'E-commerce et plateformes web',
+      'Optimisation SEO technique',
+      'Web-design réactif (Responsive)',
     ],
   },
 ]
@@ -56,8 +80,8 @@ const services = [
 <template>
   <section id="services" class="page-section">
     <div class="section-heading reveal">
-      <p class="section-kicker">SERVICES</p>
-      <h2>Une offre claire pour répondre à vos besoins informatiques.</h2>
+      <p class="section-kicker">Expertise</p>
+      <h2>Des services structurés pour accompagner votre croissance.</h2>
     </div>
 
     <div class="services-grid">
@@ -74,8 +98,14 @@ const services = [
 <style scoped>
 .services-grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 1100px) {
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
