@@ -105,6 +105,8 @@ function resetForm() {
   touchedFields.message = false
 }
 
+const discordWebhookUrl = import.meta.env.VITE_DISCORD_WEBHOOK_URL
+
 async function submitForm() {
   touchedFields.name = true
   touchedFields.email = true
@@ -129,12 +131,57 @@ async function submitForm() {
     message: form.message.trim(),
   }
 
-  await Promise.resolve(contactPayload)
+  const embedPayload = {
+    embeds: [
+      {
+        title: 'Nouvelle demande de contact',
+        color: 0x2f3136,
+        fields: [
+          { name: 'Nom', value: contactPayload.name || 'Non fourni', inline: true },
+          { name: 'Email', value: contactPayload.email || 'Non fourni', inline: true },
+          { name: 'Téléphone', value: contactPayload.phone || 'Non fourni', inline: true },
+          { name: 'Type de client', value: contactPayload.clientType, inline: true },
+          { name: 'Service demandé', value: contactPayload.serviceType, inline: true },
+          { name: 'Budget', value: contactPayload.budget, inline: true },
+          { name: 'Message', value: contactPayload.message || 'Aucun message', inline: false },
+        ],
+        footer: {
+          text: 'Les Jeunes Techniciens',
+        },
+        timestamp: new Date().toISOString(),
+      },
+    ],
+  }
 
-  statusMessage.value = 'Merci, votre demande a été envoyée.'
-  hasSubmittedSuccessfully.value = true
-  isSubmitting.value = false
-  resetForm()
+  if (!discordWebhookUrl) {
+    statusMessage.value = 'La configuration du webhook est manquante.'
+    isSubmitting.value = false
+    return
+  }
+
+  try {
+    const response = await fetch(discordWebhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(embedPayload),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Erreur webhook Discord: ${response.status}`)
+    }
+
+    statusMessage.value = 'Merci, votre demande a été envoyée.'
+    hasSubmittedSuccessfully.value = true
+    resetForm()
+  } catch (error) {
+    console.error('Discord webhook error', error)
+    statusMessage.value = 'Une erreur est survenue. Réessayez plus tard.'
+    hasSubmittedSuccessfully.value = false
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 
