@@ -20,6 +20,7 @@ const proofPoints = [
         <p>
           Les Jeunes Techniciens est une initiative qui mobilise les meilleurs talents étudiants en informatique pour répondre aux besoins technologiques du marché. Nous offrons une expertise moderne, encadrée par des standards de qualité élevés.
         </p>
+        <br>
         <p>
           Notre mission est double : fournir des résultats tangibles à nos clients tout en forgeant l'expérience de la prochaine génération d'experts. Cette symbiose nous permet de proposer des solutions innovantes, fiables et à forte valeur ajoutée.
         </p>
