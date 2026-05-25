@@ -9,6 +9,7 @@ const serviceTypes = [
   'Sécurité Numérique',
   'Automatisation & IA',
   'Développement Web',
+  'Projet sur mesure',
 ]
 
 // Sync with store
