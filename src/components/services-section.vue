@@ -18,21 +18,21 @@ const services = [
     category: 'Composants Matériels',
     title: 'Expertise Hardware & Infrastructure',
     description:
-      'Conseil et intégration de matériel informatique de pointe pour optimiser vos performances.',
+      'Conseil et intégration matérielle avec sélection rigoureuse de composants critiques pour fiabilité et performance.',
     items: [
-      'Sélection de composants critiques',
-      'Assemblage de stations de travail',
-      'Diagnostic de performance hardware',
-      'Mises à niveau d\'infrastructure',
+      'Sélection de composants',
+      'Audit matériel et recommandations',
+      'Assemblage de stations durables',
+      'Surveillance et support d\'infrastructure',
     ],
   },
   {
     category: 'Support & Assistance',
-    title: 'Support technique, appels et aide',
+    title: 'Ligne d\'assistance',
     description:
       'Une assistance directe et réactive pour résoudre vos défis techniques au quotidien.',
     items: [
-      'Ligne de support téléphonique',
+      'Support en direct 24/7',
       'Prise en main à distance sécurisée',
       'Assistance utilisateur immédiate',
       'Résolution d\'incidents critiques',
@@ -44,10 +44,10 @@ const services = [
     description:
       'Des protocoles de sécurité avancés pour garantir l\'intégrité de vos données.',
     items: [
-      'Audit de sécurité complet',
-      'Gestion sécurisée des accès',
-      'Sensibilisation cyber-menaces',
-      'Plans de reprise d\'activité',
+      'Audit de sécurité opérationnel',
+      'Renforcement des accès et chiffrement',
+      'Formation du personnel',
+      'Plan de reprise et conformité',
     ],
   },
   {
@@ -69,9 +69,21 @@ const services = [
       'Conception de sites et applications web modernes, performants et orientés utilisateur.',
     items: [
       'Sites vitrines haute performance',
-      'E-commerce et plateformes web',
+      'Plateforme web',
       'Optimisation SEO technique',
-      'Web-design réactif (Responsive)',
+      'Maintenance évolutive et performance continue',
+    ],
+  },
+  {
+    category: 'Projet sur mesure',
+    title: 'Solutions personnalisées pour mandats spécifiques',
+    description:
+      'Accompagnement complet pour concevoir, développer et livrer des projets sur mesure, en respectant vos contraintes métier.',
+    items: [
+      'Analyse précise du besoin',
+      'Prototype et maquette rapide',
+      'Développement full stack',
+      'Support post-lancement renforcé',
     ],
   },
 ]
@@ -102,9 +114,17 @@ const services = [
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.services-grid > *:nth-child(7) {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 1100px) {
   .services-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .services-grid > *:nth-child(7) {
+    grid-column: auto;
   }
 }
 
