@@ -101,7 +101,10 @@ const services = [
         v-for="service in services"
         :key="service.title"
         :service="service"
-        class="reveal"
+        :class="[
+          'reveal',
+          { 'service-card-centered': service.category === 'Projet sur mesure' }
+        ]"
       />
     </div>
   </section>

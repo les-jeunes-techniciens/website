@@ -94,4 +94,35 @@ function selectService(category) {
 .item-text {
   line-height: 1.4;
 }
+
+.service-card-centered {
+  text-align: center;
+}
+
+.service-card-centered .card-kicker,
+.service-card-centered h3,
+.service-card-centered > p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-card-centered > p {
+  max-width: 38ch;
+}
+
+.service-card-centered ul {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 34ch;
+  display: grid;
+  justify-items: center;
+}
+
+.service-card-centered .bullet {
+  display: none;
+}
+
+.service-card-centered li {
+  justify-content: center;
+}
 </style>
