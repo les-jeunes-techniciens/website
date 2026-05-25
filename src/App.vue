@@ -7,6 +7,11 @@ import ContactSection from './components/contact-section.vue'
 import SiteFooter from './components/site-footer.vue'
 import SupportChatbot from './components/support-chatbot.vue'
 import SiteNavbar from './components/site-navbar.vue'
+import useScrollReveal from './use-scroll-reveal.js'
+import useCursorGrid from './cursor-grid.js'
+
+useScrollReveal()
+useCursorGrid()
 </script>
 
 <template>
