@@ -55,4 +55,4 @@ npm run dev
 </table>
 
 ## État actuel
-Site vitrine monopage fonctionnel, responsive et prêt pour intégration ou déploiement statique.
+Site vitrine monopage fonctionnel, déployé sur le site web https://les-jeunes-techniciens.ca/
