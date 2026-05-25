@@ -9,7 +9,7 @@ const serviceTypesFr = [
   'Sécurité Numérique',
   'Automatisation & IA',
   'Développement Web',
-  'Projet sur mesure',
+  'Projet Sur Mesure',
 ]
 
 const serviceTypesEn = [

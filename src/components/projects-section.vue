@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, nextTick } from 'vue'
 import { store } from '../store'
 import ProjectCard from './project-card.vue'
 
@@ -228,13 +228,13 @@ function handleCtaClick() {
   } else if (title === 'Flux d’Automatisation IA' || title === 'AI Automation Workflows') {
     service = 'Automatisation & IA'
   } else if (title === 'Audit & Sécurité' || title === 'Audit & Security') {
-    service = 'Cybersécurité'
+    service = 'Sécurité Numérique'
   } else if (title === 'Infrastructure SI' || title === 'IT Infrastructure') {
     service = 'Composants Matériels'
   } else if (title === 'Outils Métiers Sur Mesure' || title === 'Custom Business Tools') {
     service = 'Conception Logicielle'
   } else if (title === 'Conseil Technologique' || title === 'IT Consulting') {
-    service = 'Projet sur mesure'
+    service = 'Projet Sur Mesure'
   }
   
   if (service) {
@@ -242,6 +242,13 @@ function handleCtaClick() {
   }
   
   closeModal()
+
+  nextTick(() => {
+    const targetElement = document.getElementById('service-selection-field')
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  })
 }
 </script>
 
