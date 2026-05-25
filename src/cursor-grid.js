@@ -2,11 +2,12 @@ import { onMounted, onUnmounted } from 'vue'
 
 export default function useCursorGrid() {
   let state = null
+  let animationEnabled = false
   const dotSpacing = 40
   const mouseRadius = 350
-  const persistenceMs = 1500 // Full intensity for 1.5s
-  const fadeOutMs = 2000 // Fade out over 2s
-  
+  const persistenceMs = 1500
+  const fadeOutMs = 2000
+
   const mouse = { x: -1000, y: -1000 }
   let lastMoveTime = 0
   let intensity = 0
@@ -28,8 +29,9 @@ export default function useCursorGrid() {
   }
 
   function tick() {
-    if (!state) return
-    const { ctx, canvas } = state
+    if (!state || !animationEnabled) return
+
+    const { ctx } = state
     const now = performance.now()
     const timeSinceMove = now - lastMoveTime
 
@@ -40,18 +42,15 @@ export default function useCursorGrid() {
       targetIntensity = 1 - (timeSinceMove - persistenceMs) / fadeOutMs
     }
 
-    // Smoothly interpolate current intensity
     intensity += (targetIntensity - intensity) * 0.05
 
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+
     if (intensity < 0.005) {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
       state.frameId = requestAnimationFrame(tick)
       return
     }
 
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-    
-    // Get accent color from CSS variables
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#34d399'
     ctx.fillStyle = primaryColor
 
@@ -59,26 +58,21 @@ export default function useCursorGrid() {
     const scrollY = window.scrollY || 0
     const offsetX = scrollX % dotSpacing
     const offsetY = scrollY % dotSpacing
-    
-    // Draw dots in a grid around the mouse
     const columns = Math.ceil(window.innerWidth / dotSpacing) + 2
     const rows = Math.ceil(window.innerHeight / dotSpacing) + 2
+    const radiusSq = mouseRadius * mouseRadius
 
     for (let i = -1; i < columns; i++) {
       for (let j = -1; j < rows; j++) {
-        const x = (i * dotSpacing) - offsetX
-        const y = (j * dotSpacing) - offsetY
-        
+        const x = i * dotSpacing - offsetX
+        const y = j * dotSpacing - offsetY
         const dx = x - mouse.x
         const dy = y - mouse.y
         const distSq = dx * dx + dy * dy
-        const radiusSq = mouseRadius * mouseRadius
 
         if (distSq < radiusSq) {
           const distFactor = 1 - Math.sqrt(distSq) / mouseRadius
-          const opacity = distFactor * intensity
-          
-          ctx.globalAlpha = opacity
+          ctx.globalAlpha = distFactor * intensity
           ctx.beginPath()
           ctx.arc(x, y, 1.5, 0, Math.PI * 2)
           ctx.fill()
@@ -90,6 +84,11 @@ export default function useCursorGrid() {
   }
 
   onMounted(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches
+
+    if (prefersReducedMotion || !hasFinePointer) return
+
     const canvas = document.createElement('canvas')
     canvas.id = 'cursor-grid-canvas'
     canvas.style.position = 'fixed'
@@ -104,12 +103,20 @@ export default function useCursorGrid() {
     state = {
       canvas,
       ctx: canvas.getContext('2d'),
-      frameId: null
+      frameId: null,
+    }
+
+    animationEnabled = Boolean(state.ctx)
+
+    if (!animationEnabled) {
+      state.canvas.remove()
+      state = null
+      return
     }
 
     resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
-    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('resize', resizeCanvas, { passive: true })
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
     state.frameId = requestAnimationFrame(tick)
   })
 
@@ -120,5 +127,6 @@ export default function useCursorGrid() {
     cancelAnimationFrame(state.frameId)
     state.canvas.remove()
     state = null
+    animationEnabled = false
   })
 }
