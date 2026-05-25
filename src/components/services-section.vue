@@ -22,7 +22,7 @@ const servicesFr = [
     description:
       'Conseil et intégration de matériel informatique de pointe pour optimiser vos performances.',
     items: [
-      'Sélection et intégration de composants critiques',
+      'Sélection et intégration de composants',
       'Assemblage de stations de travail',
       'Diagnostic de performance hardware',
       'Mises à niveau d\'infrastructure',
@@ -71,7 +71,7 @@ const servicesFr = [
       'Conception de sites et applications web modernes, performants et orientés utilisateur.',
     items: [
       'Sites vitrines haute performance',
-      'E-commerce et plateformes web',
+      'Design Web & applications (responsive)',
       'Optimisation SEO technique',
       'Intégration d\'API & solutions SaaS sur mesure',
     ],
