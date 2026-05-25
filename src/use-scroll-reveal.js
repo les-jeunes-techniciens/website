@@ -1,55 +1,64 @@
 import { onMounted, onUnmounted } from 'vue'
 
-const revealSelector = [
-  '.reveal',
-  '.about-copy',
-  '.about-card',
-  '.values-row',
-  '.site-footer',
-].join(', ')
+const revealSelector = '.reveal'
 const visibleClass = 'is-visible'
 const fromLeftClass = 'reveal-from-left'
 const fromRightClass = 'reveal-from-right'
 const styleNodeId = 'scroll-reveal-styles'
-const visibilityThreshold = 0.18
-const rootMargin = '0px 0px -8% 0px'
+const visibilityThreshold = 0.08
+const rootMargin = '0px 0px -12% 0px'
 
 const revealStyles = `
-  .reveal,
-  .about-copy,
-  .about-card,
-  .values-row,
-  .site-footer {
+  .reveal {
     animation: none !important;
     opacity: 0;
+    transform: translateY(18px) scale(0.96);
     transition:
-      opacity 720ms ease,
-      transform 720ms cubic-bezier(0.2, 0.85, 0.28, 1);
+      opacity 620ms ease,
+      transform 620ms cubic-bezier(0.2, 0.85, 0.28, 1);
     will-change: opacity, transform;
   }
 
   .reveal-from-left {
-    transform: translate(clamp(-96px, -8vw, -40px), 0);
+    transform: translateX(clamp(-96px, -8vw, -40px)) translateY(12px) scale(0.96);
   }
 
   .reveal-from-right {
-    transform: translate(clamp(40px, 8vw, 96px), 0);
+    transform: translateX(clamp(40px, 8vw, 96px)) translateY(12px) scale(0.96);
+  }
+
+  .reveal-from-bottom {
+    transform: translateY(clamp(48px, 6vw, 72px)) scale(0.96);
   }
 
   .is-visible {
     opacity: 1;
-    transform: translate(0, 0);
+    transform: translate(0, 0) scale(1);
+    animation: popIn 560ms ease both;
+  }
+
+  @keyframes popIn {
+    0% {
+      opacity: 0;
+      transform: translateY(18px) scale(0.96);
+    }
+
+    60% {
+      opacity: 1;
+      transform: translateY(-4px) scale(1.01);
+    }
+
+    100% {
+      transform: translateY(0) scale(1);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal,
-    .about-copy,
-    .about-card,
-    .values-row,
-    .site-footer {
+    .reveal {
       opacity: 1;
       transform: none;
       transition: none;
+      animation: none;
     }
   }
 `
@@ -63,14 +72,28 @@ function injectStyles() {
   return styleNode
 }
 
-function pickDirectionClass(index) {
-  if (index % 2 === 0) return fromLeftClass
-  return fromRightClass
+function getServiceDirection(target, globalIndex) {
+  const serviceItem = target.closest('.services-grid > *')
+  if (!serviceItem) return null
+
+  const gridItems = Array.from(serviceItem.parentElement.querySelectorAll('.reveal'))
+  const itemIndex = gridItems.indexOf(target)
+  if (itemIndex === -1) return null
+
+  if (itemIndex === 1 || itemIndex === 4 || itemIndex === 6) {
+    return 'reveal-from-bottom'
+  }
+
+  return itemIndex % 2 === 0 ? fromLeftClass : fromRightClass
+}
+
+function pickDirectionClass(index, element) {
+  return getServiceDirection(element, index) || (index % 2 === 0 ? fromLeftClass : fromRightClass)
 }
 
 function assignDirections(targets) {
   targets.forEach((element, index) => {
-    element.classList.add(pickDirectionClass(index))
+    element.classList.add(pickDirectionClass(index, element))
   })
 }
 
@@ -79,9 +102,20 @@ export default function useScrollReveal() {
   let observer = null
 
   function revealEntry(entry) {
-    if (!entry.isIntersecting) return
-    entry.target.classList.add(visibleClass)
-    observer.unobserve(entry.target)
+    if (!entry.target.classList.contains(visibleClass)) {
+      entry.target.style.animation = 'none'
+    }
+
+    if (!entry.isIntersecting) {
+      entry.target.classList.remove(visibleClass)
+      return
+    }
+
+    entry.target.classList.remove(visibleClass)
+    requestAnimationFrame(() => {
+      entry.target.classList.add(visibleClass)
+      entry.target.style.animation = ''
+    })
   }
 
   function onIntersection(entries) {
