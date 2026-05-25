@@ -6,9 +6,11 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [
     vue(),
-    tailwindcss()
+    tailwindcss(),
   ],
   server: {
-    port: process.env.port || 5173
-  }
+    host: '127.0.0.1',
+    port: 4173,
+    strictPort: true,
+  },
 });
