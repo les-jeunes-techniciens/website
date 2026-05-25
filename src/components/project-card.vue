@@ -1,16 +1,22 @@
 <script setup>
+const emit = defineEmits(['openProject'])
+
 defineProps({
   project: {
     type: Object,
     required: true,
   },
 })
+
+function handleClick() {
+  emit('openProject', project)
+}
 </script>
 
 <template>
-  <article class="project-card">
+  <article class="project-card" @click="handleClick">
     <h3>{{ project.title }}</h3>
-    <p>{{ project.description }}</p>
+    <p>{{ project.summary }}</p>
     <span>{{ project.technology }}</span>
   </article>
 </template>
