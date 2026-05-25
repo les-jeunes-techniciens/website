@@ -1,15 +1,27 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { store } from '../store'
 
 const isMenuOpen = ref(false)
 const hasScrolled = ref(false)
 
-const navigationLinks = [
-  { label: 'Accueil', href: '#accueil' },
-  { label: 'Services', href: '#services' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'À propos', href: '#a-propos' },
-]
+const navigationLinks = computed(() => {
+  if (store.locale === 'fr') {
+    return [
+      { label: 'Accueil', href: '#accueil' },
+      { label: 'Services', href: '#services' },
+      { label: 'Solutions', href: '#solutions' },
+      { label: 'À propos', href: '#a-propos' },
+    ]
+  } else {
+    return [
+      { label: 'Home', href: '#accueil' },
+      { label: 'Services', href: '#services' },
+      { label: 'Solutions', href: '#solutions' },
+      { label: 'About', href: '#a-propos' },
+    ]
+  }
+})
 
 function closeMenu() {
   isMenuOpen.value = false
@@ -23,7 +35,12 @@ function updateHeaderState() {
   hasScrolled.value = window.scrollY > 20
 }
 
+function changeLang(lang) {
+  store.setLocale(lang)
+}
+
 onMounted(() => {
+  store.setLocale('fr') // Le site est obligatoirement en français lors de l'ouverture
   document.documentElement.dataset.theme = 'dark'
   updateHeaderState()
   window.addEventListener('scroll', updateHeaderState, { passive: true })
@@ -53,6 +70,21 @@ onUnmounted(() => {
     </nav>
 
     <div class="header-actions">
+      <!-- Sélecteur de Langue FR/EN -->
+      <div class="lang-selector">
+        <button
+          :class="{ 'is-active': store.locale === 'fr' }"
+          type="button"
+          @click="changeLang('fr')"
+        >FR</button>
+        <span class="lang-divider">|</span>
+        <button
+          :class="{ 'is-active': store.locale === 'en' }"
+          type="button"
+          @click="changeLang('en')"
+        >EN</button>
+      </div>
+
       <a href="#contact" class="contact-link" @click="closeMenu">Contact</a>
       
       <button
@@ -70,6 +102,44 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+.lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  margin-right: 0.75rem;
+}
+
+.lang-selector button {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.lang-selector button.is-active {
+  color: var(--primary);
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.lang-selector button:hover:not(.is-active) {
+  color: var(--deep);
+}
+
+.lang-divider {
+  color: var(--line);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
 .site-header {
   position: sticky;
   top: 1.5rem;

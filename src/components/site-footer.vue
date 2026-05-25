@@ -1,25 +1,21 @@
+<script setup>
+import { store } from '../store'
+</script>
+
 <template>
   <footer class="site-footer">
-    <div class="site-footer-line">
-      <p>© 2026 Les Jeunes Techniciens</p>
-    </div>
-    <div class="site-footer-line">
-      <p>Expertise numérique étudiante au service de votre performance.</p>
-      <p>
-        <a href="https://github.com/les-jeunes-techniciens/website" target="_blank" rel="noreferrer noopener">
-          Source du site web
-        </a>
-      </p>
-    </div>
+    <p>© 2026 Les Jeunes Techniciens</p>
+    <p>
+      {{ store.locale === 'fr' ? 'Expertise numérique étudiante au service de votre performance.' : 'Student digital expertise at the service of your performance.' }}
+    </p>
   </footer>
 </template>
 
 <style scoped>
 .site-footer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+  justify-content: space-between;
+  gap: 1rem;
   width: min(1120px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 2rem 0 2.5rem;
@@ -37,18 +33,10 @@
   font-weight: 800;
 }
 
-.site-footer-line {
-  text-align: center;
-}
-
-.site-footer a {
-  color: var(--primary);
-  text-decoration: underline;
-}
-
 @media (max-width: 560px) {
   .site-footer {
     width: min(100% - 1rem, 1120px);
+    flex-direction: column;
   }
 }
 </style>

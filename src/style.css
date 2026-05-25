@@ -191,7 +191,7 @@ main {
   margin-bottom: 1.25rem;
 }
 
-.section-heading p {
+.section-heading p:not(.section-kicker) {
   max-width: 690px;
   margin-bottom: 2rem;
   font-size: 1.08rem;
@@ -201,9 +201,9 @@ main {
 .hero-panel span {
   margin: 0 0 1rem;
   color: var(--primary);
-  font-size: 0.76rem;
+  font-size: 0.85rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 

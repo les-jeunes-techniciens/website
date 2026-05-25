@@ -1,41 +1,41 @@
+<script setup>
+import { store } from '../store'
+</script>
+
 <template>
   <section id="accueil" class="hero-section">
     <div class="hero-container">
       <div class="hero-content reveal">
-        <h1>CONCEPTION DE SOLUTIONS LOGICIELLES</h1>
-        <p>
-          Nous accompagnons votre croissance avec des solutions numériques innovantes,
-          alliant cybersécurité de pointe et automatisation intelligente.
-        </p>
-        <div class="hero-actions">
-          <a class="primary-button" href="#contact">Prêt à démarrer ton projet ?</a>
-          <a class="hero-secondary" href="#services">
-            <span class="play-icon">▶</span> Voir nos services
-          </a>
-        </div>
+        <template v-if="store.locale === 'fr'">
+          <h1>CONCEPTION DE SOLUTIONS LOGICIELLES</h1>
+          <p>
+            Nous accompagnons votre croissance avec des solutions numériques innovantes, 
+            alliant cybersécurité de pointe et automatisation intelligente.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#contact">Démarrer un projet</a>
+            <a class="hero-secondary" href="#services">
+              <span class="play-icon">▶</span> Voir nos services
+            </a>
+          </div>
+        </template>
+        <template v-else>
+          <h1>CUSTOM SOFTWARE SOLUTIONS</h1>
+          <p>
+            We empower your growth with innovative digital systems, 
+            combining state-of-the-art cybersecurity and intelligent automation.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#contact">Start a Project</a>
+            <a class="hero-secondary" href="#services">
+              <span class="play-icon">▶</span> Explore Services
+            </a>
+          </div>
+        </template>
       </div>
 
       <div class="hero-illustration reveal delay-one">
-        <div class="hero-image-panel">
-          <div class="hero-image-meta">
-            <span>Équipe dédiée</span>
-            <strong>Solutions conçues pour les mandats ambitieux</strong>
-          </div>
-          <div class="hero-image-cards">
-            <article class="hero-card">
-              <p>Architecture fiable</p>
-              <strong>Sélection de composants et sécurité éprouvées</strong>
-            </article>
-            <article class="hero-card">
-              <p>Interfaces modernes</p>
-              <strong>Design responsive et expérience fluide</strong>
-            </article>
-            <article class="hero-card">
-              <p>Livraison structurée</p>
-              <strong>Déploiement clair et suivi continu</strong>
-            </article>
-          </div>
-        </div>
+        <img src="/isometric_software_developer.png" alt="Software Development Illustration" />
       </div>
     </div>
   </section>
@@ -69,7 +69,7 @@
   margin-bottom: 2rem;
   letter-spacing: -0.05em;
   text-transform: uppercase;
-  color: var(--deep);
+  color: #ffffff;
 }
 
 .hero-content p:not(.section-kicker) {
@@ -80,64 +80,16 @@
   line-height: 1.6;
 }
 
-.hero-illustration {
-  display: flex;
-  justify-content: center;
+.hero-illustration img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
+  animation: float 6s ease-in-out infinite;
 }
 
-.hero-image-panel {
-  width: min(100%, 520px);
-  padding: 2rem;
-  border-radius: 28px;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(7, 14, 25, 0.9));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.42);
-}
-
-.hero-image-meta {
-  display: grid;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.hero-image-meta span {
-  color: var(--primary);
-  font-size: 0.85rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 800;
-}
-
-.hero-image-meta strong {
-  display: block;
-  font-size: 1.15rem;
-  line-height: 1.4;
-  color: var(--deep);
-}
-
-.hero-image-cards {
-  display: grid;
-  gap: 1rem;
-}
-
-.hero-card {
-  padding: 1.3rem 1.25rem;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.hero-card p {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-bottom: 0.45rem;
-}
-
-.hero-card strong {
-  display: block;
-  color: var(--deep);
-  font-size: 1.05rem;
-  line-height: 1.4;
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
 }
 
 .hero-actions {

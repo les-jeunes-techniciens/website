@@ -1,7 +1,9 @@
 <script setup>
+import { computed } from 'vue'
+import { store } from '../store'
 import ServiceCard from './service-card.vue'
 
-const services = [
+const servicesFr = [
   {
     category: 'Conception Logicielle',
     title: 'Architectures logicielles sur mesure',
@@ -18,36 +20,36 @@ const services = [
     category: 'Composants Matériels',
     title: 'Expertise Hardware & Infrastructure',
     description:
-      'Conseil et intégration matérielle avec sélection rigoureuse de composants critiques pour fiabilité et performance.',
+      'Conseil et intégration de matériel informatique de pointe pour optimiser vos performances.',
     items: [
-      'Sélection de composants',
-      'Audit matériel et recommandations',
-      'Assemblage de stations durables',
-      'Surveillance et support d\'infrastructure',
+      'Sélection et intégration de composants critiques',
+      'Assemblage de stations de travail',
+      'Diagnostic de performance hardware',
+      'Mises à niveau d\'infrastructure',
     ],
   },
   {
     category: 'Support & Assistance',
-    title: 'Ligne d\'assistance',
+    title: 'Support technique & Chatbot IA',
     description:
-      'Une assistance directe et réactive pour résoudre vos défis techniques au quotidien.',
+      'Une assistance intelligente et instantanée via notre chatbot IA pour résoudre vos questions techniques au quotidien.',
     items: [
-      'Support en direct 24/7',
+      'Chatbot IA d\'assistance disponible 24h/24',
       'Prise en main à distance sécurisée',
-      'Assistance utilisateur immédiate',
-      'Résolution d\'incidents critiques',
+      'Résolution instantanée dans le chat du site',
+      'Support utilisateur et diagnostic guidé',
     ],
   },
   {
     category: 'Sécurité Numérique',
-    title: 'Protection de vos actifs numériques',
+    title: 'Audit, conformité & cybersécurité',
     description:
-      'Des protocoles de sécurité avancés pour garantir l\'intégrité de vos données.',
+      'Sécurisation intégrale de vos systèmes avec des audits approfondis et la mise en place de défenses proactives.',
     items: [
-      'Audit de sécurité opérationnel',
-      'Renforcement des accès et chiffrement',
-      'Formation du personnel',
-      'Plan de reprise et conformité',
+      'Audits de vulnérabilité & Pentesting',
+      'Sécurisation de réseaux & protocoles Zero-Trust',
+      'Protection avancée contre les ransomwares',
+      'Plans de reprise d\'activité & PCA/PRA',
     ],
   },
   {
@@ -69,42 +71,135 @@ const services = [
       'Conception de sites et applications web modernes, performants et orientés utilisateur.',
     items: [
       'Sites vitrines haute performance',
-      'Plateforme web',
+      'E-commerce et plateformes web',
       'Optimisation SEO technique',
-      'Maintenance évolutive et performance continue',
+      'Intégration d\'API & solutions SaaS sur mesure',
     ],
   },
   {
-    category: 'Projet sur mesure',
-    title: 'Solutions personnalisées pour mandats spécifiques',
+    category: 'Projet Sur Mesure',
+    title: 'Solutions technologiques de A à Z',
     description:
-      'Accompagnement complet pour concevoir, développer et livrer des projets sur mesure, en respectant vos contraintes métier.',
+      'Conception et développement de projets uniques et complexes adaptés à vos besoins technologiques spécifiques.',
     items: [
-      'Analyse précise du besoin',
-      'Prototype et maquette rapide',
-      'Développement full stack',
-      'Support post-lancement renforcé',
+      'Cahier des charges & prototypage rapide',
+      'Développement agile et itératif',
+      'Accompagnement & transfert technologique',
+      'Support continu et évolutivité garantie',
     ],
   },
 ]
+
+const servicesEn = [
+  {
+    category: 'Software Design',
+    title: 'Custom Software Architectures',
+    description:
+      'Designing robust, scalable systems tailored to your specific workflows.',
+    items: [
+      'Requirements analysis & architecture',
+      'Business applications development',
+      'Source code optimization',
+      'Proactive software maintenance',
+    ],
+  },
+  {
+    category: 'Hardware Components',
+    title: 'Hardware & Infrastructure Expertise',
+    description:
+      'Advice and integration of cutting-edge IT hardware to optimize your performance.',
+    items: [
+      'Selection & integration of critical components',
+      'Workstation assembly',
+      'Hardware performance diagnostics',
+      'Infrastructure upgrades',
+    ],
+  },
+  {
+    category: 'Support & Assistance',
+    title: 'Technical Support & AI Chatbot',
+    description:
+      'Intelligent, instant assistance via our AI chatbot to resolve your daily technical questions.',
+    items: [
+      'AI Chatbot support available 24/7',
+      'Secure remote troubleshooting',
+      'Instant resolution in site chat',
+      'User support and guided diagnostics',
+    ],
+  },
+  {
+    category: 'Digital Security',
+    title: 'Audits, Compliance & Cybersecurity',
+    description:
+      'Full system security with deep audits and proactive defense implementation.',
+    items: [
+      'Vulnerability audits & Pentesting',
+      'Network security & Zero-Trust protocols',
+      'Advanced ransomware protection',
+      'Disaster recovery & business continuity plans',
+    ],
+  },
+  {
+    category: 'Automation & AI',
+    title: 'AI-Powered Optimization',
+    description:
+      'Integration of AI solutions to automate processes and boost productivity.',
+    items: [
+      'Workflow automation',
+      'AI model integration',
+      'Optimization scripts',
+      'Intelligent data analysis',
+    ],
+  },
+  {
+    category: 'Web Development',
+    title: 'Premium Digital Experiences',
+    description:
+      'Designing modern, high-performance, user-oriented websites and web apps.',
+    items: [
+      'High-performance showcase websites',
+      'E-commerce & web platforms',
+      'Technical SEO optimization',
+      'API integration & custom SaaS solutions',
+    ],
+  },
+  {
+    category: 'Custom Project',
+    title: 'End-to-End Technological Solutions',
+    description:
+      'Design and development of unique, complex projects tailored to your specific tech needs.',
+    items: [
+      'Specifications & rapid prototyping',
+      'Agile & iterative development',
+      'Guidance & knowledge transfer',
+      'Continuous support & guaranteed scalability',
+    ],
+  },
+]
+
+const servicesList = computed(() => {
+  return store.locale === 'fr' ? servicesFr : servicesEn
+})
 </script>
 
 <template>
   <section id="services" class="page-section">
     <div class="section-heading reveal">
-      <p class="section-kicker">Expertise</p>
-      <h2>Des services structurés pour accompagner votre croissance.</h2>
+      <p class="section-kicker">
+        {{ store.locale === 'fr' ? 'Expertise' : 'Expertise' }}
+      </p>
+      <h2>
+        {{ store.locale === 'fr' ? 'Des services structurés pour accompagner votre croissance.' : 'Structured services to support your growth.' }}
+      </h2>
     </div>
 
     <div class="services-grid">
       <ServiceCard
-        v-for="service in services"
+        v-for="(service, index) in servicesList"
         :key="service.title"
         :service="service"
-        :class="[
-          'reveal',
-          { 'service-card-centered': service.category === 'Projet sur mesure' }
-        ]"
+        class="reveal"
+        :class="{ 'featured-card': index === 6 }"
       />
     </div>
   </section>
@@ -117,8 +212,10 @@ const services = [
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.services-grid > *:nth-child(7) {
-  grid-column: 1 / -1;
+@media (min-width: 1100px) {
+  .services-grid .featured-card {
+    grid-column: span 3;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -126,14 +223,18 @@ const services = [
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .services-grid > *:nth-child(7) {
-    grid-column: auto;
+  .services-grid .featured-card {
+    grid-column: span 2;
   }
 }
 
 @media (max-width: 900px) {
   .services-grid {
     grid-template-columns: 1fr;
+  }
+
+  .services-grid .featured-card {
+    grid-column: span 1;
   }
 }
 </style>

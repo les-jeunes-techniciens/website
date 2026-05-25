@@ -19,9 +19,11 @@ function selectService(category) {
 
 <template>
   <article class="service-card" @click="selectService(service.category)">
-    <p class="card-kicker">{{ service.category }}</p>
-    <h3>{{ service.title }}</h3>
-    <p>{{ service.description }}</p>
+    <div class="card-header">
+      <p class="card-kicker">{{ service.category }}</p>
+      <h3>{{ service.title }}</h3>
+      <p>{{ service.description }}</p>
+    </div>
     <ul>
       <li v-for="item in service.items" :key="item">
         <span class="bullet">→</span>
@@ -95,34 +97,15 @@ function selectService(category) {
   line-height: 1.4;
 }
 
-.service-card-centered {
-  text-align: center;
-}
-
-.service-card-centered .card-kicker,
-.service-card-centered h3,
-.service-card-centered > p {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.service-card-centered > p {
-  max-width: 38ch;
-}
-
-.service-card-centered ul {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 34ch;
-  display: grid;
-  justify-items: center;
-}
-
-.service-card-centered .bullet {
-  display: none;
-}
-
-.service-card-centered li {
-  justify-content: center;
+@media (min-width: 1100px) {
+  .service-card.featured-card {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .service-card.featured-card ul {
+    margin-top: 0;
+  }
 }
 </style>

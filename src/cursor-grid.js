@@ -55,17 +55,19 @@ export default function useCursorGrid() {
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#34d399'
     ctx.fillStyle = primaryColor
 
-    const startX = (mouse.x % dotSpacing) - dotSpacing
-    const startY = (mouse.y % dotSpacing) - dotSpacing
+    const scrollX = window.scrollX || 0
+    const scrollY = window.scrollY || 0
+    const offsetX = scrollX % dotSpacing
+    const offsetY = scrollY % dotSpacing
     
     // Draw dots in a grid around the mouse
     const columns = Math.ceil(window.innerWidth / dotSpacing) + 2
     const rows = Math.ceil(window.innerHeight / dotSpacing) + 2
 
-    for (let i = 0; i < columns; i++) {
-      for (let j = 0; j < rows; j++) {
-        const x = (i * dotSpacing)
-        const y = (j * dotSpacing)
+    for (let i = -1; i < columns; i++) {
+      for (let j = -1; j < rows; j++) {
+        const x = (i * dotSpacing) - offsetX
+        const y = (j * dotSpacing) - offsetY
         
         const dx = x - mouse.x
         const dy = y - mouse.y

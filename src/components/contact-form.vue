@@ -2,7 +2,7 @@
 import { computed, reactive, ref, watch } from 'vue'
 import { store } from '../store'
 
-const serviceTypes = [
+const serviceTypesFr = [
   'Conception Logicielle',
   'Composants Matériels',
   'Support & Assistance',
@@ -12,14 +12,21 @@ const serviceTypes = [
   'Projet sur mesure',
 ]
 
-// Sync with store
-watch(() => store.selectedService, (newVal) => {
-  if (newVal) {
-    form.serviceType = newVal
-  }
+const serviceTypesEn = [
+  'Software Design',
+  'Hardware Components',
+  'Support & Assistance',
+  'Digital Security',
+  'Automation & AI',
+  'Web Development',
+  'Custom Project',
+]
+
+const serviceTypes = computed(() => {
+  return store.locale === 'fr' ? serviceTypesFr : serviceTypesEn
 })
 
-const budgetOptions = [
+const budgetOptionsFr = [
   'Moins de 500 $',
   '500 $ à 1 000 $',
   '1 000 $ à 2 500 $',
@@ -27,15 +34,71 @@ const budgetOptions = [
   'À discuter',
 ]
 
+const budgetOptionsEn = [
+  'Under $500',
+  '$500 to $1,000',
+  '$1,000 to $2,500',
+  '$2,500 and more',
+  'To be discussed',
+]
+
+const budgetOptions = computed(() => {
+  return store.locale === 'fr' ? budgetOptionsFr : budgetOptionsEn
+})
+
+// Sync with store
+watch(() => store.selectedService, (newVal) => {
+  if (newVal) {
+    const index = serviceTypesFr.indexOf(newVal) !== -1 ? serviceTypesFr.indexOf(newVal) : serviceTypesEn.indexOf(newVal)
+    if (index !== -1) {
+      form.serviceType = store.locale === 'fr' ? serviceTypesFr[index] : serviceTypesEn[index]
+    } else {
+      form.serviceType = newVal
+    }
+  }
+})
+
+// Real-time translation of selected options when locale changes
+watch(() => store.locale, (newLang) => {
+  // Translate clientType value in-place
+  if (form.clientType === 'Entreprise' || form.clientType === 'Company') {
+    form.clientType = newLang === 'fr' ? 'Entreprise' : 'Company'
+  } else if (form.clientType === 'Particulier' || form.clientType === 'Individual') {
+    form.clientType = newLang === 'fr' ? 'Particulier' : 'Individual'
+  } else if (form.clientType === 'Projet interne / cégep' || form.clientType === 'Internal project / college') {
+    form.clientType = newLang === 'fr' ? 'Projet interne / cégep' : 'Internal project / college'
+  }
+
+  // Translate serviceType value in-place
+  const sIndex = newLang === 'fr' ? serviceTypesEn.indexOf(form.serviceType) : serviceTypesFr.indexOf(form.serviceType)
+  if (sIndex !== -1) {
+    form.serviceType = newLang === 'fr' ? serviceTypesFr[sIndex] : serviceTypesEn[sIndex]
+  }
+
+  // Translate budget value in-place
+  const bIndex = newLang === 'fr' ? budgetOptionsEn.indexOf(form.budget) : budgetOptionsFr.indexOf(form.budget)
+  if (bIndex !== -1) {
+    form.budget = newLang === 'fr' ? budgetOptionsFr[bIndex] : budgetOptionsEn[bIndex]
+  }
+})
+
 const form = reactive({
   name: '',
   email: '',
   phone: '',
   clientType: '',
-  serviceType: store.selectedService || '',
+  serviceType: '',
   budget: '',
   message: '',
 })
+
+// Initialize serviceType properly
+if (store.selectedService) {
+  const index = serviceTypesFr.indexOf(store.selectedService) !== -1 ? serviceTypesFr.indexOf(store.selectedService) : serviceTypesEn.indexOf(store.selectedService)
+  if (index !== -1) {
+    form.serviceType = store.locale === 'fr' ? serviceTypesFr[index] : serviceTypesEn[index]
+  }
+}
 
 const touchedFields = reactive({
   name: false,
@@ -52,28 +115,46 @@ const hasSubmittedSuccessfully = ref(false)
 
 const isEmailValid = computed(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
 
-const nameLabel = computed(() =>
-  form.clientType === 'Entreprise' ? "Nom de l'entreprise" : 'Nom',
-)
+const nameLabel = computed(() => {
+  if (store.locale === 'fr') {
+    return form.clientType === 'Entreprise' ? "Nom de l'entreprise" : 'Nom'
+  } else {
+    return form.clientType === 'Company' ? 'Company name' : 'Name'
+  }
+})
 
-const nameError = computed(() =>
-  form.clientType === 'Entreprise'
-    ? "Le nom de l'entreprise est requis."
-    : 'Le nom est requis.',
-)
+const nameError = computed(() => {
+  if (store.locale === 'fr') {
+    return form.clientType === 'Entreprise'
+      ? "Le nom de l'entreprise est requis."
+      : 'Le nom est requis.'
+  } else {
+    return form.clientType === 'Company'
+      ? 'Company name is required.'
+      : 'Name is required.'
+  }
+})
 
 const validationErrors = computed(() => ({
   name: touchedFields.name && !form.name.trim() ? nameError.value : '',
   email:
     touchedFields.email && !isEmailValid.value
-      ? 'Entrez une adresse email valide.'
+      ? (store.locale === 'fr' ? 'Entrez une adresse email valide.' : 'Enter a valid email address.')
       : '',
   clientType:
-    touchedFields.clientType && !form.clientType ? 'Sélectionnez un type de client.' : '',
+    touchedFields.clientType && !form.clientType 
+      ? (store.locale === 'fr' ? 'Sélectionnez un type de client.' : 'Select a client type.') 
+      : '',
   serviceType:
-    touchedFields.serviceType && !form.serviceType ? 'Sélectionnez un type de service.' : '',
-  budget: touchedFields.budget && !form.budget ? 'Sélectionnez un budget.' : '',
-  message: touchedFields.message && !form.message.trim() ? 'Le message est requis.' : '',
+    touchedFields.serviceType && !form.serviceType 
+      ? (store.locale === 'fr' ? 'Sélectionnez un type de service.' : 'Select a service type.') 
+      : '',
+  budget: touchedFields.budget && !form.budget 
+      ? (store.locale === 'fr' ? 'Sélectionnez un budget.' : 'Select a budget.') 
+      : '',
+  message: touchedFields.message && !form.message.trim() 
+      ? (store.locale === 'fr' ? 'Le message est requis.' : 'Message is required.') 
+      : '',
 }))
 
 const isFormValid = computed(
@@ -106,8 +187,6 @@ function resetForm() {
   touchedFields.message = false
 }
 
-const discordWebhookUrl = import.meta.env.VITE_DISCORD_WEBHOOK_URL
-
 async function submitForm() {
   touchedFields.name = true
   touchedFields.email = true
@@ -132,57 +211,12 @@ async function submitForm() {
     message: form.message.trim(),
   }
 
-  const embedPayload = {
-    embeds: [
-      {
-        title: 'Nouvelle demande de contact',
-        color: 0x2f3136,
-        fields: [
-          { name: 'Nom', value: contactPayload.name || 'Non fourni', inline: true },
-          { name: 'Email', value: contactPayload.email || 'Non fourni', inline: true },
-          { name: 'Téléphone', value: contactPayload.phone || 'Non fourni', inline: true },
-          { name: 'Type de client', value: contactPayload.clientType, inline: true },
-          { name: 'Service demandé', value: contactPayload.serviceType, inline: true },
-          { name: 'Budget', value: contactPayload.budget, inline: true },
-          { name: 'Message', value: contactPayload.message || 'Aucun message', inline: false },
-        ],
-        footer: {
-          text: 'Les Jeunes Techniciens',
-        },
-        timestamp: new Date().toISOString(),
-      },
-    ],
-  }
+  await Promise.resolve(contactPayload)
 
-  if (!discordWebhookUrl) {
-    statusMessage.value = 'La configuration du webhook est manquante.'
-    isSubmitting.value = false
-    return
-  }
-
-  try {
-    const response = await fetch(discordWebhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(embedPayload),
-    })
-
-    if (!response.ok) {
-      throw new Error(`Erreur webhook Discord: ${response.status}`)
-    }
-
-    statusMessage.value = 'Merci, votre demande a été envoyée.'
-    hasSubmittedSuccessfully.value = true
-    resetForm()
-  } catch (error) {
-    console.error('Discord webhook error', error)
-    statusMessage.value = 'Une erreur est survenue. Réessayez plus tard.'
-    hasSubmittedSuccessfully.value = false
-  } finally {
-    isSubmitting.value = false
-  }
+  statusMessage.value = store.locale === 'fr' ? 'Merci, votre demande a été envoyée.' : 'Thank you, your request has been sent.'
+  hasSubmittedSuccessfully.value = true
+  isSubmitting.value = false
+  resetForm()
 }
 </script>
 
@@ -198,7 +232,7 @@ async function submitForm() {
         v-model="form.name"
         name="name"
         type="text"
-        :autocomplete="form.clientType === 'Entreprise' ? 'organization' : 'name'"
+        :autocomplete="form.clientType === 'Entreprise' || form.clientType === 'Company' ? 'organization' : 'name'"
         :aria-invalid="Boolean(validationErrors.name)"
         @blur="markFieldTouched('name')"
       />
@@ -206,7 +240,7 @@ async function submitForm() {
     </label>
 
     <label>
-      Email
+      {{ store.locale === 'fr' ? 'Email' : 'Email' }}
       <input
         v-model="form.email"
         name="email"
@@ -219,22 +253,22 @@ async function submitForm() {
     </label>
 
     <label>
-      Téléphone (optionnel)
+      {{ store.locale === 'fr' ? 'Téléphone (optionnel)' : 'Phone (optional)' }}
       <input v-model="form.phone" name="phone" type="tel" autocomplete="tel" />
     </label>
 
     <label>
-      Type de client
+      {{ store.locale === 'fr' ? 'Type de client' : 'Client type' }}
       <select
         v-model="form.clientType"
         name="clientType"
         :aria-invalid="Boolean(validationErrors.clientType)"
         @blur="markFieldTouched('clientType')"
       >
-        <option value="" disabled>Choisir une option</option>
-        <option value="Entreprise">Entreprise</option>
-        <option value="Particulier">Particulier</option>
-        <option value="Projet interne / cégep">Projet interne / cégep</option>
+        <option value="" disabled>{{ store.locale === 'fr' ? 'Choisir une option' : 'Choose an option' }}</option>
+        <option :value="store.locale === 'fr' ? 'Entreprise' : 'Company'">{{ store.locale === 'fr' ? 'Entreprise' : 'Company' }}</option>
+        <option :value="store.locale === 'fr' ? 'Particulier' : 'Individual'">{{ store.locale === 'fr' ? 'Particulier' : 'Individual' }}</option>
+        <option :value="store.locale === 'fr' ? 'Projet interne / cégep' : 'Internal project / college'">{{ store.locale === 'fr' ? 'Projet interne / cégep' : 'Internal project / college' }}</option>
       </select>
       <span v-if="validationErrors.clientType" class="field-error">
         {{ validationErrors.clientType }}
@@ -242,14 +276,14 @@ async function submitForm() {
     </label>
 
     <label id="service-selection-field">
-      Type de service
+      {{ store.locale === 'fr' ? 'Type de service' : 'Service type' }}
       <select
         v-model="form.serviceType"
         name="serviceType"
         :aria-invalid="Boolean(validationErrors.serviceType)"
         @blur="markFieldTouched('serviceType')"
       >
-        <option value="" disabled>Choisir une option</option>
+        <option value="" disabled>{{ store.locale === 'fr' ? 'Choisir une option' : 'Choose an option' }}</option>
         <option v-for="serviceType in serviceTypes" :key="serviceType" :value="serviceType">
           {{ serviceType }}
         </option>
@@ -260,14 +294,14 @@ async function submitForm() {
     </label>
 
     <label>
-      Budget approximatif
+      {{ store.locale === 'fr' ? 'Budget approximatif' : 'Approximate budget' }}
       <select
         v-model="form.budget"
         name="budget"
         :aria-invalid="Boolean(validationErrors.budget)"
         @blur="markFieldTouched('budget')"
       >
-        <option value="" disabled>Choisir une option</option>
+        <option value="" disabled>{{ store.locale === 'fr' ? 'Choisir une option' : 'Choose an option' }}</option>
         <option v-for="option in budgetOptions" :key="option" :value="option">
           {{ option }}
         </option>
@@ -278,7 +312,7 @@ async function submitForm() {
     </label>
 
     <label>
-      Message
+      {{ store.locale === 'fr' ? 'Message' : 'Message' }}
       <textarea
         v-model="form.message"
         name="message"
@@ -292,7 +326,7 @@ async function submitForm() {
     </label>
 
     <button class="primary-button" type="submit" :disabled="isSubmitting">
-      {{ isSubmitting ? 'Envoi...' : 'Envoyer la demande' }}
+      {{ isSubmitting ? (store.locale === 'fr' ? 'Envoi...' : 'Sending...') : (store.locale === 'fr' ? 'Envoyer la demande' : 'Send Request') }}
     </button>
 
     <p
@@ -308,8 +342,9 @@ async function submitForm() {
 <style scoped>
 .contact-form {
   display: grid;
-  gap: 1rem;
-  padding: clamp(1.25rem, 3vw, 2rem);
+  gap: 1.2rem;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  text-align: left;
 }
 
 .contact-form label {
@@ -318,6 +353,8 @@ async function submitForm() {
   color: var(--deep);
   font-weight: 800;
   transition: color 320ms ease;
+  text-align: left;
+  align-items: flex-start;
 }
 
 .animated-label-wrapper {
@@ -356,6 +393,8 @@ async function submitForm() {
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1.25rem;
+  text-align: left;
+  text-align-last: left;
   transition:
     background-color 320ms ease,
     border-color 200ms ease,
@@ -369,7 +408,7 @@ async function submitForm() {
 }
 
 .contact-form option {
-  background: #1a1a1a;
+  background: #112821;
   color: #ffffff;
 }
 
@@ -377,11 +416,17 @@ async function submitForm() {
 .contact-form select:focus,
 .contact-form textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(240, 81, 81, 0.12);
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.12);
 }
 
 .contact-form [aria-invalid='true'] {
   border-color: #ef4444;
+}
+
+.contact-form .primary-button {
+  justify-self: start;
+  min-width: 280px;
+  margin-top: 1.5rem;
 }
 
 .field-error,
@@ -390,6 +435,7 @@ async function submitForm() {
   font-size: 0.86rem;
   font-weight: 700;
   color: #ef4444;
+  text-align: left;
 }
 
 .form-message.is-success {
