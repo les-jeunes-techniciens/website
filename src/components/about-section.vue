@@ -1,10 +1,35 @@
 <script setup>
-const values = ['Excellence', 'Rigueur', 'Transparence']
-
-const proofPoints = [
-  'Encadrement professionnel rigoureux',
-  'Méthodologies éprouvées et sécurisées',
-  'Accompagnement personnalisé et réactif',
+const valueCards = [
+  {
+    title: 'Apprentissage',
+    description:
+      'Chaque mandat est une opportunité d’apprendre sur le terrain tout en produisant des résultats mesurables.',
+  },
+  {
+    title: 'Transparence',
+    description:
+      'Communication claire et livrables visibles à chaque étape pour éviter les surprises.',
+  },
+  {
+    title: 'Professionnalisme',
+    description:
+      'Approche structurée et respect des délais, même dans les projets les plus exigeants.',
+  },
+  {
+    title: 'Collaboration',
+    description:
+      'Travail de concert avec vos équipes pour aligner les solutions sur vos objectifs réels.',
+  },
+  {
+    title: 'Responsabilité',
+    description:
+      'Engagement à livrer des solutions fiables et à assumer les résultats de nos recommandations.',
+  },
+  {
+    title: 'Innovation accessible',
+    description:
+      'Des technologies modernes appliquées de manière pragmatique, sans complexité inutile.',
+  },
 ]
 </script>
 
@@ -16,7 +41,7 @@ const proofPoints = [
     </div>
 
     <div class="about-grid">
-      <div class="about-copy">
+      <div class="about-copy reveal">
         <p>
           Les Jeunes Techniciens est une initiative qui mobilise les meilleurs talents étudiants en informatique pour répondre aux besoins technologiques du marché. Nous offrons une expertise moderne, encadrée par des standards de qualité élevés.
         </p>
@@ -26,21 +51,24 @@ const proofPoints = [
         </p>
       </div>
 
-      <div class="about-card">
+      <div class="about-card reveal">
         <h3>Pourquoi nous faire confiance ?</h3>
         <ul>
-          <li v-for="proofPoint in proofPoints" :key="proofPoint">{{ proofPoint }}</li>
+          <li v-for="proofPoint in ['Encadrement professionnel rigoureux', 'Méthodologies éprouvées et sécurisées', 'Accompagnement personnalisé et réactif']" :key="proofPoint">
+            {{ proofPoint }}
+          </li>
         </ul>
       </div>
     </div>
 
-    <div class="values-row">
-      <div>
-        <p class="section-kicker">Nos Fondements</p>
-        <p>Des principes solides pour bâtir une relation de partenariat durable.</p>
-      </div>
-      <div class="values-list">
-        <span v-for="value in values" :key="value">{{ value }}</span>
+    <div class="values-section reveal">
+      <p class="section-kicker">Nos valeurs</p>
+      <div class="values-grid">
+        <article v-for="value in valueCards" :key="value.title" class="value-card">
+          <span class="value-icon">✔</span>
+          <h3>{{ value.title }}</h3>
+          <p>{{ value.description }}</p>
+        </article>
       </div>
     </div>
   </section>
@@ -103,34 +131,46 @@ const proofPoints = [
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
 }
 
-.values-row {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 1.25rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--line);
+.values-section {
+  margin-top: 2.5rem;
 }
 
-.values-row p {
-  max-width: 520px;
-  margin-bottom: 0;
+.values-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1.25rem;
 }
 
-.values-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
+.value-card {
+  padding: 1.5rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.values-list span {
-  padding: 0.7rem 0.95rem;
-  border-radius: 999px;
-  color: var(--deep);
-  font-weight: 800;
-  background: var(--accent-soft);
-  transition: background-color 320ms ease, color 320ms ease;
+.value-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin-bottom: 1rem;
+  border-radius: 14px;
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--primary);
+  font-weight: 900;
+}
+
+.value-card h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.value-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 @media (max-width: 900px) {
@@ -138,10 +178,8 @@ const proofPoints = [
     grid-template-columns: 1fr;
   }
 
-  .values-row {
+  .values-grid {
     grid-template-columns: 1fr;
-    align-items: flex-start;
-    flex-direction: column;
   }
 }
 </style>
