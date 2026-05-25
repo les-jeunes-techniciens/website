@@ -45,12 +45,6 @@ npm run dev
 			<i>Développeur</i><br />
 			<a href="https://github.com/Scornic25">GitHub</a>
 		</td>
-		<td align="center" width="33.33%">
-			<img src="https://github.com/LudoMar-Cpu.png" width="100px" style="border-radius:50%" /><br />
-			<b>LudoMar-Cpu</b><br />
-			<i>Contributeur</i><br />
-			<a href="https://github.com/LudoMar-Cpu">GitHub</a>
-		</td>
         <td align="center" width="33.33%">
 			<img src="https://github.com/CodeCrateDev.png" width="100px" style="border-radius:50%" /><br />
 			<b>CodeCrate</b><br />

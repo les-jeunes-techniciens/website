@@ -43,7 +43,9 @@ const proofPoints = computed(() => {
         </p>
         <p v-else>
           Les Jeunes Techniciens is an initiative that mobilizes the best student talents in computer science to meet market technology needs. We offer modern expertise, framed by high quality standards.
+        
         </p>
+        <br>
         <p v-if="store.locale === 'fr'">
           Notre mission est double : fournir des résultats tangibles à nos clients tout en forgeant l'expérience de la prochaine génération d'experts. Cette symbiose nous permet de proposer des solutions innovantes, fiables et à forte valeur ajoutée.
         </p>

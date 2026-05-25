@@ -8,10 +8,10 @@ const projectsFr = [
     title: 'Écosystème Web Premium',
     description:
       'Développement de plateformes modernes et performantes, optimisées pour le référencement et l’expérience utilisateur.',
-    technology: 'Vue.js, Vite, Node.js, Architecture Cloud',
+    technology: 'React, Vue.js, Vite, Node.js, Architecture Cloud',
     detailedDescription:
-      'Conception et développement complet d’applications et sites web haute performance. Nous combinons des architectures modernes (Vue 3, Single Page Application) avec une couche de rendu ultra-rapide et un hébergement cloud optimisé pour garantir des temps de chargement records et un SEO optimal.',
-    softwareUsed: ['Vue.js', 'Vite', 'Node.js', 'Git', 'VS Code', 'Docker', 'TailwindCSS', 'Figma', 'Nginx', 'GitHub Actions'],
+      'Conception et développement complet d’applications et sites web haute performance. Nous combinons des architectures modernes (React, Vue 3, Single Page Application) avec une couche de rendu ultra-rapide et un hébergement cloud optimisé pour garantir des temps de chargement records et un SEO optimal.',
+    softwareUsed: ['React', 'Vue.js', 'Vite', 'Node.js', 'Git', 'VS Code', 'Docker', 'TailwindCSS', 'Figma', 'Nginx', 'GitHub Actions'],
     benefits: [
       'Temps de chargement divisé par 3',
       'Indexation SEO maximisée sur Google',
@@ -107,10 +107,10 @@ const projectsEn = [
     title: 'Premium Web Ecosystem',
     description:
       'Development of modern, high-performance platforms optimized for SEO and user experience.',
-    technology: 'Vue.js, Vite, Node.js, Cloud Architecture',
+    technology: 'React, Vue.js, Vite, Node.js, Cloud Architecture',
     detailedDescription:
-      'Complete design and development of high-performance web applications and sites. We combine modern architectures (Vue 3, Single Page Application) with an ultra-fast rendering layer and optimized cloud hosting to guarantee record-breaking load times and optimal SEO.',
-    softwareUsed: ['Vue.js', 'Vite', 'Node.js', 'Git', 'VS Code', 'Docker', 'TailwindCSS', 'Figma', 'Nginx', 'GitHub Actions'],
+      'Complete design and development of high-performance web applications and sites. We combine modern architectures (React, Vue 3, Single Page Application) with an ultra-fast rendering layer and optimized cloud hosting to guarantee record-breaking load times and optimal SEO.',
+    softwareUsed: ['React', 'Vue.js', 'Vite', 'Node.js', 'Git', 'VS Code', 'Docker', 'TailwindCSS', 'Figma', 'Nginx', 'GitHub Actions'],
     benefits: [
       'Load times divided by 3',
       'Maximized Google SEO indexing',
@@ -216,6 +216,33 @@ function closeModal() {
   selectedProject.value = null
   document.body.style.overflow = ''
 }
+
+function handleCtaClick() {
+  if (!selectedProject.value) return
+  
+  const title = selectedProject.value.title
+  let service = ''
+  
+  if (title === 'Écosystème Web Premium' || title === 'Premium Web Ecosystem') {
+    service = 'Développement Web'
+  } else if (title === 'Flux d’Automatisation IA' || title === 'AI Automation Workflows') {
+    service = 'Automatisation & IA'
+  } else if (title === 'Audit & Sécurité' || title === 'Audit & Security') {
+    service = 'Cybersécurité'
+  } else if (title === 'Infrastructure SI' || title === 'IT Infrastructure') {
+    service = 'Composants Matériels'
+  } else if (title === 'Outils Métiers Sur Mesure' || title === 'Custom Business Tools') {
+    service = 'Conception Logicielle'
+  } else if (title === 'Conseil Technologique' || title === 'IT Consulting') {
+    service = 'Projet sur mesure'
+  }
+  
+  if (service) {
+    store.setService(service)
+  }
+  
+  closeModal()
+}
 </script>
 
 <template>
@@ -298,7 +325,7 @@ function closeModal() {
             </div>
 
             <footer class="modal-footer">
-              <a href="#contact" class="primary-button modal-cta-btn" @click="closeModal">
+              <a href="#contact" class="primary-button modal-cta-btn" @click="handleCtaClick">
                 {{ store.locale === 'fr' ? 'Discuter de ce type de projet' : 'Discuss this type of project' }}
               </a>
             </footer>
