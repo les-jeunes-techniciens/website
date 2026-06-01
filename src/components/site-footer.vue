@@ -13,20 +13,15 @@ import { store } from '../store'
 
 <style scoped>
 .site-footer {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   width: min(1120px, 96%);
   margin: 0 auto;
   padding: 2% 1% 2.5%;
-  border-top: 0.08% solid var(--line);
+  border-top: 1px solid var(--line);
   transition: border-color 320ms ease;
   background: var(--page-background);
-  z-index: 50;
 }
 
 .site-footer p {
@@ -43,8 +38,6 @@ import { store } from '../store'
   .site-footer {
     width: calc(100% - 2rem);
     flex-direction: column;
-    left: 50%;
-    transform: translateX(-50%);
     padding: 3% 1.5%;
   }
 }
