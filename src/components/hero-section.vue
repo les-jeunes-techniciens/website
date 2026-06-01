@@ -1,5 +1,20 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
 import { store } from '../store'
+
+const currentImageIndex = ref(0)
+const images = ['/President.png', '/VP.png']
+let fadeInterval
+
+onMounted(() => {
+  fadeInterval = setInterval(() => {
+    currentImageIndex.value = (currentImageIndex.value + 1) % images.length
+  }, 10000)
+})
+
+onUnmounted(() => {
+  if (fadeInterval) clearInterval(fadeInterval)
+})
 </script>
 
 <template>
@@ -35,7 +50,16 @@ import { store } from '../store'
       </div>
 
       <div class="hero-illustration reveal delay-one">
-        <img src="/isometric_software_developer.png" alt="Software Development Illustration" />
+        <div class="hero-images">
+          <img 
+            v-for="(image, index) in images" 
+            :key="image"
+            :src="image" 
+            :alt="`Team Member ${index + 1}`"
+            :class="{ active: currentImageIndex === index }"
+            class="hero-image"
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -90,6 +114,33 @@ import { store } from '../store'
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-30px); }
+}
+
+.hero-images {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 24px;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
+  animation: float 6s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  z-index: 1;
+}
+
+.hero-image.active {
+  opacity: 1;
+  z-index: 2;
 }
 
 .hero-actions {
