@@ -211,12 +211,31 @@ async function submitForm() {
     message: form.message.trim(),
   }
 
-  await Promise.resolve(contactPayload)
+  const webhookUrl = import.meta.env.VITE_DISCORD_WEBHOOK_URL || import.meta.env.VITE_DISCORD_WEBHOOK
 
-  statusMessage.value = store.locale === 'fr' ? 'Merci, votre demande a été envoyée.' : 'Thank you, your request has been sent.'
-  hasSubmittedSuccessfully.value = true
-  isSubmitting.value = false
-  resetForm()
+  try {
+    if (!webhookUrl) throw new Error('Missing webhook URL')
+
+    const content = `New contact request:\nName: ${contactPayload.name}\nEmail: ${contactPayload.email}\nPhone: ${contactPayload.phone}\nClient type: ${contactPayload.clientType}\nService: ${contactPayload.serviceType}\nBudget: ${contactPayload.budget}\nMessage: ${contactPayload.message}`
+
+    const res = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content })
+    })
+
+    if (!res.ok) throw new Error(`Webhook error: ${res.status}`)
+
+    statusMessage.value = store.locale === 'fr' ? 'Merci, votre demande a été envoyée.' : 'Thank you, your request has been sent.'
+    hasSubmittedSuccessfully.value = true
+    resetForm()
+  } catch (err) {
+    console.error(err)
+    statusMessage.value = store.locale === 'fr' ? "Une erreur est survenue. Réessayez plus tard." : 'An error occurred. Please try again later.'
+    hasSubmittedSuccessfully.value = false
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 
