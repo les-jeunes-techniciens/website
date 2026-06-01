@@ -18,7 +18,7 @@ function selectService(category) {
 </script>
 
 <template>
-  <article class="service-card" @click="selectService(service.category)">
+  <article class="service-card" :class="{ 'is-construction': service.isConstruction }" @click="selectService(service.category)">
     <div class="card-header">
       <p class="card-kicker">{{ service.category }}</p>
       <h3>{{ service.title }}</h3>
@@ -30,11 +30,15 @@ function selectService(category) {
         <span class="item-text">{{ item }}</span>
       </li>
     </ul>
+    <div v-if="service.isConstruction" class="construction-overlay">
+      <span>{{ store.locale === 'fr' ? 'En construction' : 'In construction' }}</span>
+    </div>
   </article>
 </template>
 
 <style scoped>
 .service-card {
+  position: relative;
   padding: 2rem;
   background: var(--surface);
   border: 1px solid var(--line);
@@ -48,6 +52,41 @@ function selectService(category) {
   background: var(--surface-strong);
   transform: translateY(-5px);
   box-shadow: var(--shadow-strong);
+}
+
+.service-card.is-construction {
+  background: #4a5a52;
+  border-color: #5a6a62;
+  opacity: 0.8;
+}
+
+.service-card.is-construction:hover {
+  background: #4a5a52;
+  border-color: #5a6a62;
+  transform: none;
+  box-shadow: none;
+}
+
+.construction-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  border-radius: 24px;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.service-card.is-construction:hover .construction-overlay {
+  opacity: 1;
 }
 
 .card-kicker {
