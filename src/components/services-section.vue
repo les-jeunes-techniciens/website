@@ -39,6 +39,7 @@ const servicesFr = [
       'Résolution instantanée dans le chat du site',
       'Support utilisateur et diagnostic guidé',
     ],
+    isConstruction: true,
   },
   {
     category: 'Sécurité Numérique',
@@ -126,6 +127,7 @@ const servicesEn = [
       'Instant resolution in site chat',
       'User support and guided diagnostics',
     ],
+    isConstruction: true,
   },
   {
     category: 'Digital Security',
