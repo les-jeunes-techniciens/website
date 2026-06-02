@@ -7,6 +7,8 @@ const hasScrolled = ref(false)
 let logoClickCount = 0
 let logoClickTimer = null
 let prideResetTimer = null
+let emojiResetTimer = null
+const showEmojiLang = ref(false)
 
 const navigationLinks = computed(() => {
   if (store.locale === 'fr') {
@@ -38,8 +40,21 @@ function updateHeaderState() {
   hasScrolled.value = window.scrollY > 20
 }
 
-function changeLang(lang) {
+function changeLang(lang, event) {
   store.setLocale(lang)
+
+  if (event?.shiftKey) {
+    showEmojiLang.value = true
+    if (emojiResetTimer) {
+      window.clearTimeout(emojiResetTimer)
+    }
+    emojiResetTimer = window.setTimeout(() => {
+      showEmojiLang.value = false
+      emojiResetTimer = null
+    }, 3000)
+  } else {
+    showEmojiLang.value = false
+  }
 }
 
 function resetLogoClickState() {
@@ -109,6 +124,9 @@ onUnmounted(() => {
   if (prideResetTimer) {
     window.clearTimeout(prideResetTimer)
   }
+  if (emojiResetTimer) {
+    window.clearTimeout(emojiResetTimer)
+  }
   document.body.classList.remove('pride-easter-egg')
 })
 </script>
@@ -137,14 +155,14 @@ onUnmounted(() => {
         <button
           :class="{ 'is-active': store.locale === 'fr' }"
           type="button"
-          @click="changeLang('fr')"
-        >FR</button>
+          @click="changeLang('fr', $event)"
+        >{{ showEmojiLang ? '🥖' : 'FR' }}</button>
         <span class="lang-divider">|</span>
         <button
           :class="{ 'is-active': store.locale === 'en' }"
           type="button"
-          @click="changeLang('en')"
-        >EN</button>
+          @click="changeLang('en', $event)"
+        >{{ showEmojiLang ? '🍵' : 'EN' }}</button>
       </div>
 
       <a href="#contact" class="contact-link" @click="closeMenu">Contact</a>
