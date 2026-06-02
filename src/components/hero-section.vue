@@ -1,19 +1,111 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch, computed, nextTick } from 'vue'
 import { store } from '../store'
 
 const currentImageIndex = ref(0)
 const images = ['/President.png', '/VP.png']
 let fadeInterval
 
+const typePhrasesFr = [
+  'Développement web',
+  'Automatisation',
+  'IA',
+  'Cybersécurité',
+  'Infrastructure TI',
+  'La solution à votre problème',
+  'Consultation TI',
+]
+
+const typePhrasesEn = [
+  'Web development',
+  'Automation',
+  'AI',
+  'Cybersecurity',
+  'IT infrastructure',
+  'The custom solution to your problem',
+  'IT consulting',
+]
+
+const typePhrases = computed(() => (store.locale === 'fr' ? typePhrasesFr : typePhrasesEn))
+const currentText = ref('')
+const currentPhraseIndex = ref(0)
+const currentCharIndex = ref(0)
+const isDeleting = ref(false)
+const isPausedAfterComplete = ref(false)
+const showCursor = computed(() => currentText.value && !isPausedAfterComplete.value)
+let typingTimeout = null
+
+function scheduleTyping(timeout) {
+  if (typingTimeout) clearTimeout(typingTimeout)
+  typingTimeout = window.setTimeout(runTyping, timeout)
+}
+
+function runTyping() {
+  const phrases = typePhrases.value
+  if (!phrases.length) return
+
+  const phrase = phrases[currentPhraseIndex.value % phrases.length]
+
+  if (isDeleting.value) {
+    if (isPausedAfterComplete.value) {
+      isPausedAfterComplete.value = false
+    }
+
+    currentCharIndex.value = Math.max(currentCharIndex.value - 1, 0)
+    currentText.value = phrase.slice(0, currentCharIndex.value)
+
+    if (currentCharIndex.value === 0) {
+      isDeleting.value = false
+      currentPhraseIndex.value = (currentPhraseIndex.value + 1) % phrases.length
+      scheduleTyping(600)
+      return
+    }
+
+    scheduleTyping(40 + Math.random() * 50)
+    return
+  }
+
+  currentCharIndex.value = Math.min(currentCharIndex.value + 1, phrase.length)
+  currentText.value = phrase.slice(0, currentCharIndex.value)
+
+  if (currentText.value === phrase) {
+    isDeleting.value = true
+    isPausedAfterComplete.value = true
+    scheduleTyping(1400)
+    return
+  }
+
+  scheduleTyping(80 + Math.random() * 70)
+}
+
+function resetTyping() {
+  currentText.value = ''
+  currentPhraseIndex.value = 0
+  currentCharIndex.value = 0
+  isDeleting.value = false
+  isPausedAfterComplete.value = false
+  scheduleTyping(500)
+}
+
 onMounted(() => {
   fadeInterval = setInterval(() => {
     currentImageIndex.value = (currentImageIndex.value + 1) % images.length
   }, 10000)
+
+  scheduleTyping(500)
 })
+
+watch(
+  () => store.locale,
+  async () => {
+    await nextTick()
+    resetTyping()
+  }
+)
 
 onUnmounted(() => {
   if (fadeInterval) clearInterval(fadeInterval)
+  if (typingTimeout) clearTimeout(typingTimeout)
 })
 </script>
 
@@ -24,8 +116,11 @@ onUnmounted(() => {
         <template v-if="store.locale === 'fr'">
           <h1>CONCEPTION DE SOLUTIONS LOGICIELLES</h1>
           <p>
-            Nous accompagnons votre croissance avec des solutions numériques innovantes, 
-            alliant cybersécurité de pointe et automatisation intelligente.
+            Nous accompagnons votre croissance avec des solutions numériques en
+            <span class="typing-line">
+              <span class="typing-text">{{ currentText }}</span>
+              <span v-if="showCursor" class="typing-cursor" aria-hidden="true"></span>
+            </span>
           </p>
           <div class="hero-actions">
             <a class="primary-button" href="#contact">Démarrer un projet</a>
@@ -37,8 +132,11 @@ onUnmounted(() => {
         <template v-else>
           <h1>CUSTOM SOFTWARE SOLUTIONS</h1>
           <p>
-            We empower your growth with innovative digital systems, 
-            combining state-of-the-art cybersecurity and intelligent automation.
+            We empower your growth with innovative digital systems including
+            <span class="typing-line">
+              <span class="typing-text">{{ currentText }}</span>
+              <span v-if="showCursor" class="typing-cursor" aria-hidden="true"></span>
+            </span>
           </p>
           <div class="hero-actions">
             <a class="primary-button" href="#contact">Start a Project</a>
@@ -102,6 +200,39 @@ onUnmounted(() => {
   max-width: 580px;
   margin-bottom: 3rem;
   line-height: 1.6;
+}
+
+.typing-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.typing-text {
+  display: inline-block;
+  min-width: 1ch;
+  white-space: nowrap;
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 0.17em;
+  height: 1.25em;
+  margin-left: 0.1rem;
+  background-color: var(--primary);
+  animation: blink-cursor 700ms step-end infinite;
+  border-radius: 999px;
+}
+
+@keyframes blink-cursor {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
 }
 
 .hero-illustration img {
