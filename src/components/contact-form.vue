@@ -421,6 +421,13 @@ async function submitForm() {
     color 320ms ease;
 }
 
+.contact-form textarea {
+  resize: none;
+  min-height: 11rem;
+  max-height: 11rem;
+  height: 11rem;
+}
+
 .contact-form input,
 .contact-form textarea {
   background-image: none;
