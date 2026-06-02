@@ -84,6 +84,7 @@ function selectService(category) {
   z-index: 10;
   backdrop-filter: blur(10px);
   background: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
 }
 
 .construction-overlay::before {
@@ -98,6 +99,8 @@ function selectService(category) {
     #1a1a1a 30px
   );
   animation: stripes-move 2s linear infinite;
+  animation-play-state: running;
+  will-change: transform;
 }
 
 @keyframes stripes-move {
