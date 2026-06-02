@@ -33,6 +33,20 @@ const currentCharIndex = ref(0)
 const isDeleting = ref(false)
 const isPausedAfterComplete = ref(false)
 const showCursor = computed(() => currentText.value && !isPausedAfterComplete.value)
+const faceClickCount = ref(0)
+const faceMessage = computed(() => {
+  const count = faceClickCount.value
+  if (count >= 500000) return "Même Ludo est choqué."
+  if (count >= 2500) return "TABARNAK, 2500 fois...T'es vraiment bizzare.."
+  if (count >= 1000) return "T'es bizzare en criss."
+  if (count >= 500) return "Yikesss, 500 fois...T'es weird.."
+  if (count >= 100) return "Bravo, tu as cliquer 100 fois sur nos visages"
+  if (count >= 1000) return "Tu deviens weird là."
+  if (count >= 20) return "Pourquoi tu touches à la face des présidents???"
+  if (count > 10) return "Bro, arrête tu deviens bizzard là"
+  return ''
+})
+
 let typingTimeout = null
 
 function scheduleTyping(timeout) {
@@ -95,6 +109,11 @@ onMounted(() => {
   scheduleTyping(500)
 })
 
+function onFaceClick() {
+  faceClickCount.value += 1
+}
+
+
 watch(
   () => store.locale,
   async () => {
@@ -148,17 +167,19 @@ onUnmounted(() => {
       </div>
 
       <div class="hero-illustration reveal delay-one">
-        <div class="hero-images">
-          <img 
-            v-for="(image, index) in images" 
-            :key="image"
-            :src="image" 
-            :alt="`Team Member ${index + 1}`"
-            :class="{ active: currentImageIndex === index }"
-            class="hero-image"
-          />
+          <div class="hero-images">
+            <img
+              v-for="(image, index) in images"
+              :key="image"
+              :src="image"
+              :alt="`Team Member ${index + 1}`"
+              :class="{ active: currentImageIndex === index }"
+              class="hero-image"
+              @click="onFaceClick"
+            />
+          </div>
+          <p v-if="faceMessage" class="face-message">{{ faceMessage }}</p>
         </div>
-      </div>
     </div>
   </section>
 </template>
@@ -240,6 +261,15 @@ onUnmounted(() => {
   height: auto;
   filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
   animation: float 6s ease-in-out infinite;
+  cursor: default;
+}
+
+.face-message {
+  margin-top: 1.25rem;
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
 }
 
 @keyframes float {
