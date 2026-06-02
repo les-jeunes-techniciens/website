@@ -25,9 +25,9 @@ npm install
 ```
 
 ## Lancement
-
+Lance le fichier start.bat
 ```bash
-npm run dev
+./start.bat
 ```
 
 ## Contributeurs
