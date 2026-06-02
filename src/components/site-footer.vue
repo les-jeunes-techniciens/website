@@ -1,10 +1,11 @@
 <script setup>
 import { store } from '../store'
+import { version } from '../../package.json'
 </script>
 
 <template>
   <footer class="site-footer">
-    <p>© 2026 Les Jeunes Techniciens</p>
+    <p>© 2026 Les Jeunes Techniciens · v{{ version }}</p>
     <p>
       <a href="https://github.com/les-jeunes-techniciens/website" target="_blank" rel="noopener" class="github-link">
         {{ store.locale === 'fr' ? 'Voir la source du site web' : 'View our source' }}
