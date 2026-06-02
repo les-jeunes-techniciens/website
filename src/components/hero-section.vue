@@ -41,7 +41,7 @@ const faceMessage = computed(() => {
   if (count >= 1000) return "T'es bizzare en criss."
   if (count >= 500) return "Yikesss, 500 fois...T'es weird.."
   if (count >= 100) return "Bravo, tu as cliquer 100 fois sur nos visages"
-  if (count >= 1000) return "Tu deviens weird là."
+  if (count >= 50) return "Tu deviens weird là."
   if (count >= 20) return "Pourquoi tu touches à la face des présidents???"
   if (count > 10) return "Bro, arrête tu deviens bizzard là"
   return ''
