@@ -205,6 +205,16 @@ const projectsList = computed(() => {
   return store.locale === 'fr' ? projectsFr : projectsEn
 })
 
+const projectTransforms = computed(() => {
+  const count = projectsList.value.length
+  return projectsList.value.map((_, index) => {
+    const angle = (360 / count) * index
+    return {
+      transform: `translate(-50%, -50%) rotate(${angle}deg) translateX(var(--circle-radius)) rotate(-${angle}deg)`,
+    }
+  })
+})
+
 const selectedProject = ref(null)
 
 function openModal(project) {
@@ -263,14 +273,19 @@ function handleCtaClick() {
       </h2>
     </div>
 
-    <div class="projects-grid">
-      <ProjectCard
-        v-for="project in projectsList"
+    <div class="projects-circle">
+      <div
+        v-for="(project, index) in projectsList"
         :key="project.title"
-        :project="project"
-        class="reveal"
-        @open="openModal(project)"
-      />
+        class="project-spot"
+        :style="projectTransforms[index]"
+      >
+        <ProjectCard
+          :project="project"
+          class="reveal"
+          @open="openModal(project)"
+        />
+      </div>
     </div>
 
     <!-- Modal -->
@@ -344,10 +359,29 @@ function handleCtaClick() {
 </template>
 
 <style scoped>
-.projects-grid {
-  display: grid;
-  gap: 1.25rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.projects-circle {
+  position: relative;
+  width: min(100%, 960px);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  --circle-radius: clamp(14rem, 30vw, 23rem);
+  animation: rotate-circle 90s linear infinite;
+}
+
+.projects-circle:hover {
+  animation-play-state: paused;
+}
+
+.project-spot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  width: clamp(14rem, 18vw, 20rem);
+}
+
+.project-spot .project-card {
+  width: 100%;
 }
 
 .project-card {
@@ -357,13 +391,13 @@ function handleCtaClick() {
   flex-direction: column;
 }
 
-.projects-grid .project-card {
+.project-card {
   position: relative;
   overflow: hidden;
   transition: all 300ms ease;
 }
 
-.projects-grid .project-card::after {
+.project-card::after {
   content: "";
   position: absolute;
   top: 0;
@@ -377,16 +411,47 @@ function handleCtaClick() {
   transition: all 300ms ease;
 }
 
-.projects-grid .project-card:hover {
+.project-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-strong);
 }
 
-.projects-grid .project-card:hover::after {
+.project-card:hover::after {
   opacity: 1;
   transform: scaleX(1);
 }
 
+@keyframes rotate-circle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .projects-circle {
+    width: 100%;
+    aspect-ratio: auto;
+    animation: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .project-spot {
+    position: static;
+    transform: none !important;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-circle {
+    grid-template-columns: 1fr;
+  }
+}
 /* Modal Styling */
 .modal-overlay {
   position: fixed;
@@ -573,13 +638,24 @@ function handleCtaClick() {
 }
 
 @media (max-width: 1024px) {
-  .projects-grid {
+  .projects-circle {
+    width: 100%;
+    aspect-ratio: auto;
+    animation: none;
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .project-spot {
+    position: static;
+    transform: none !important;
+    width: 100%;
   }
 }
 
 @media (max-width: 640px) {
-  .projects-grid {
+  .projects-circle {
     grid-template-columns: 1fr;
   }
   
