@@ -8,7 +8,8 @@ let logoClickCount = 0
 let logoClickTimer = null
 let prideResetTimer = null
 let emojiResetTimer = null
-const showEmojiLang = ref(false)
+let lastPointerShift = false
+const emojiLang = ref('')
 
 const navigationLinks = computed(() => {
   if (store.locale === 'fr') {
@@ -40,21 +41,31 @@ function updateHeaderState() {
   hasScrolled.value = window.scrollY > 20
 }
 
-function changeLang(lang, event) {
+function captureModifier(event) {
+  lastPointerShift = event.shiftKey
+}
+
+function changeLang(lang, showEmoji = false) {
   store.setLocale(lang)
 
-  if (event?.shiftKey) {
-    showEmojiLang.value = true
+  if (showEmoji) {
+    emojiLang.value = lang
     if (emojiResetTimer) {
       window.clearTimeout(emojiResetTimer)
     }
     emojiResetTimer = window.setTimeout(() => {
-      showEmojiLang.value = false
+      emojiLang.value = ''
       emojiResetTimer = null
     }, 3000)
   } else {
-    showEmojiLang.value = false
+    emojiLang.value = ''
   }
+}
+
+function onLangClick(lang, event) {
+  const showEmoji = event?.shiftKey || lastPointerShift
+  lastPointerShift = false
+  changeLang(lang, showEmoji)
 }
 
 function resetLogoClickState() {
@@ -155,14 +166,16 @@ onUnmounted(() => {
         <button
           :class="{ 'is-active': store.locale === 'fr' }"
           type="button"
-          @click="changeLang('fr', $event)"
-        >{{ showEmojiLang ? '🥖' : 'FR' }}</button>
+          @pointerdown="captureModifier"
+          @click="onLangClick('fr', $event)"
+        >{{ emojiLang === 'fr' ? '🥖' : 'FR' }}</button>
         <span class="lang-divider">|</span>
         <button
           :class="{ 'is-active': store.locale === 'en' }"
           type="button"
-          @click="changeLang('en', $event)"
-        >{{ showEmojiLang ? '🍵' : 'EN' }}</button>
+          @pointerdown="captureModifier"
+          @click="onLangClick('en', $event)"
+        >{{ emojiLang === 'en' ? '🍵' : 'EN' }}</button>
       </div>
 
       <a href="#contact" class="contact-link" @click="closeMenu">Contact</a>
