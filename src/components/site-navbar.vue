@@ -4,6 +4,9 @@ import { store } from '../store'
 
 const isMenuOpen = ref(false)
 const hasScrolled = ref(false)
+let logoClickCount = 0
+let logoClickTimer = null
+let prideResetTimer = null
 
 const navigationLinks = computed(() => {
   if (store.locale === 'fr') {
@@ -39,6 +42,58 @@ function changeLang(lang) {
   store.setLocale(lang)
 }
 
+function resetLogoClickState() {
+  logoClickCount = 0
+  logoClickTimer = null
+}
+
+function resetPrideFlag() {
+  document.body.classList.remove('pride-easter-egg')
+  prideResetTimer = null
+}
+
+function togglePrideFlag() {
+  const isActive = document.body.classList.contains('pride-easter-egg')
+  if (isActive) {
+    if (prideResetTimer) {
+      window.clearTimeout(prideResetTimer)
+    }
+    resetPrideFlag()
+    return
+  }
+
+  document.body.classList.add('pride-easter-egg')
+  if (prideResetTimer) {
+    window.clearTimeout(prideResetTimer)
+  }
+  prideResetTimer = window.setTimeout(() => {
+    resetPrideFlag()
+  }, 9000)
+}
+
+function onLogoClick() {
+  const now = new Date()
+  if (now.getMonth() !== 5) {
+    return
+  }
+
+  logoClickCount += 1
+  if (logoClickCount === 1) {
+    logoClickTimer = window.setTimeout(() => {
+      resetLogoClickState()
+    }, 2000)
+    return
+  }
+
+  if (logoClickCount === 2) {
+    if (logoClickTimer) {
+      window.clearTimeout(logoClickTimer)
+    }
+    resetLogoClickState()
+    togglePrideFlag()
+  }
+}
+
 onMounted(() => {
   store.setLocale('fr') // Le site est obligatoirement en français lors de l'ouverture
   document.documentElement.dataset.theme = 'dark'
@@ -48,13 +103,20 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', updateHeaderState)
+  if (logoClickTimer) {
+    window.clearTimeout(logoClickTimer)
+  }
+  if (prideResetTimer) {
+    window.clearTimeout(prideResetTimer)
+  }
+  document.body.classList.remove('pride-easter-egg')
 })
 </script>
 
 <template>
   <header :class="['site-header', { 'is-scrolled': hasScrolled }]">
     <a class="brand" href="#accueil" @click="closeMenu">
-      <span class="brand-mark">LJT</span>
+      <img src="/favicon.svg" alt="Les Jeunes Techniciens" class="brand-logo" @click="onLogoClick" />
       <span class="brand-name">Les Jeunes Techniciens</span>
     </a>
 
@@ -173,16 +235,10 @@ onUnmounted(() => {
   text-decoration: none;
 }
 
-.brand-mark {
-  display: grid;
+.brand-logo {
   width: 2.25rem;
   height: 2.25rem;
-  place-items: center;
-  border-radius: 10px;
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 900;
-  background: var(--secondary);
+  object-fit: contain;
 }
 
 .brand-name {
