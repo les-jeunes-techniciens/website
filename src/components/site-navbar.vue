@@ -171,9 +171,10 @@ onUnmounted(() => {
         class="menu-button"
         type="button"
         :aria-expanded="isMenuOpen"
-        aria-label="Ouvrir le menu"
+        :aria-label="isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
         @click="toggleMenu"
       >
+        <span></span>
         <span></span>
         <span></span>
       </button>
@@ -202,7 +203,11 @@ onUnmounted(() => {
   padding: 0.2rem 0.45rem;
   border-radius: 999px;
   cursor: pointer;
-  transition: all 200ms ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
 }
 
 .lang-selector button.is-active {
@@ -278,7 +283,7 @@ onUnmounted(() => {
   font-size: 0.95rem;
   font-weight: 700;
   text-decoration: none;
-  transition: all 200ms ease;
+  transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
 }
 
 .nav-links a:hover:not(.contact-link) {
@@ -316,33 +321,31 @@ onUnmounted(() => {
 }
 
 .menu-button {
-  display: grid;
+  display: none;
   place-items: center;
-  width: 2.5rem;
+  width: 2rem;
+  overflow: hidden;
   height: 2.5rem;
-  border: none;
   border-radius: 50%;
-  color: var(--deep);
-  background: var(--accent-soft);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
   cursor: pointer;
-  transition: all 200ms ease;
+  transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
 }
 
 .menu-button:hover {
-  background: var(--line-strong);
+  background: rgba(255, 255, 255, 0.24);
   transform: translateY(-1px);
-}
-
-.menu-button {
-  display: none;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
 }
 
 .menu-button span {
   display: block;
-  width: 1.1rem;
+  width: 1.7rem;
   height: 2px;
   border-radius: 999px;
-  background: var(--deep);
+  background: #929292;
 }
 
 .menu-button span + span {
@@ -363,14 +366,39 @@ onUnmounted(() => {
     flex-direction: column;
     align-items: stretch;
     padding: 1rem;
+    gap: 0.5rem;
     border: 1px solid var(--line);
     border-radius: 20px;
     background: var(--surface-strong);
     box-shadow: var(--shadow-strong);
+    z-index: 30;
+    overflow: hidden;
   }
 
   .nav-links.is-open {
     display: flex;
+  }
+
+  .nav-links a,
+  .contact-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    padding: 0.85rem 1rem;
+    border-radius: 16px;
+    font-size: 0.92rem;
+  }
+
+  .header-actions .contact-link {
+    display: none;
+  }
+
+  .contact-link {
+    padding: 0.85rem 1rem;
+    border-radius: 16px;
+    font-size: 0.92rem;
   }
 
   .menu-button {
