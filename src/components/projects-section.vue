@@ -280,11 +280,13 @@ function handleCtaClick() {
         class="project-spot"
         :style="projectTransforms[index]"
       >
-        <ProjectCard
-          :project="project"
-          class="reveal"
-          @open="openModal(project)"
-        />
+        <div class="project-card-wrapper">
+          <ProjectCard
+            :project="project"
+            class="reveal"
+            @open="openModal(project)"
+          />
+        </div>
       </div>
     </div>
 
@@ -380,6 +382,25 @@ function handleCtaClick() {
   width: clamp(14rem, 18vw, 20rem);
 }
 
+.project-card-wrapper {
+  width: 100%;
+  height: 100%;
+  animation: rotate-card-opposite 90s linear infinite;
+}
+
+.projects-circle:hover .project-card-wrapper {
+  animation-play-state: paused;
+}
+
+@keyframes rotate-card-opposite {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
 .project-spot .project-card {
   width: 100%;
 }
@@ -444,6 +465,10 @@ function handleCtaClick() {
     position: static;
     transform: none !important;
     width: 100%;
+  }
+
+  .project-card-wrapper {
+    animation: none;
   }
 }
 
@@ -651,6 +676,10 @@ function handleCtaClick() {
     position: static;
     transform: none !important;
     width: 100%;
+  }
+
+  .project-card-wrapper {
+    animation: none;
   }
 }
 

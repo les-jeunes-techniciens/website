@@ -98,11 +98,6 @@ function togglePrideFlag() {
 }
 
 function onLogoClick() {
-  const now = new Date()
-  if (now.getMonth() !== 5) {
-    return
-  }
-
   logoClickCount += 1
   if (logoClickCount === 1) {
     logoClickTimer = window.setTimeout(() => {

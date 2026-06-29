@@ -36,15 +36,51 @@ const showCursor = computed(() => currentText.value && !isPausedAfterComplete.va
 const faceClickCount = ref(0)
 const faceMessage = computed(() => {
   const count = faceClickCount.value
-  if (count >= 500000) return "Même Ludo est choqué."
-  if (count >= 2500) return "TABARNAK, 2500 fois...T'es vraiment bizzare.."
-  if (count >= 1000) return "T'es bizzare en criss."
-  if (count >= 500) return "Yikesss, 500 fois...T'es weird.."
-  if (count >= 100) return "Bravo, tu as cliquer 100 fois sur nos visages"
-  if (count >= 50) return "Tu deviens weird là."
-  if (count >= 20) return "Pourquoi tu touches à la face des présidents???"
-  if (count > 10) return "Bro, arrête tu deviens bizzard là"
-  return ''
+  const isFr = store.locale === 'fr'
+  if (count === 0) return ''
+  
+  if (count >= 500000) {
+    return isFr ? "Même Ludo est choqué." : "Even Ludo is shocked."
+  }
+  if (count >= 2500) {
+    return isFr 
+      ? "TABARNAK, 2500 fois... T'es vraiment bizarre..." 
+      : "TABARNAK, 2500 times... You are really weird..."
+  }
+  if (count >= 1000) {
+    return isFr ? "T'es bizarre en criss." : "You're crazy weird."
+  }
+  if (count >= 500) {
+    return isFr 
+      ? "Yikesss, 500 fois... T'es weird..." 
+      : "Yikesss, 500 times... You're weird..."
+  }
+  if (count >= 100) {
+    return isFr 
+      ? "Bravo, tu as cliqué 100 fois sur nos visages." 
+      : "Congrats, you clicked our faces 100 times."
+  }
+  if (count >= 50) {
+    return isFr ? "Tu deviens weird là." : "You're getting weird now."
+  }
+  if (count >= 20) {
+    return isFr 
+      ? "Pourquoi tu touches à la face des présidents???" 
+      : "Why are you touching the presidents' faces???"
+  }
+  if (count > 10) {
+    return isFr 
+      ? "Bro, arrête tu deviens bizarre là." 
+      : "Bro, stop, you're getting weird."
+  }
+  if (count >= 5) {
+    return isFr 
+      ? `Aïe ! Tu as cliqué ${count} fois... Ça suffit ?` 
+      : `Ouch! You clicked ${count} times... Is that enough?`
+  }
+  return isFr 
+    ? `Hey ! Ne me touche pas ! (${count})` 
+    : `Hey! Don't touch me! (${count})`
 })
 
 let typingTimeout = null
@@ -177,8 +213,10 @@ onUnmounted(() => {
               class="hero-image"
               @click="onFaceClick"
             />
+            <div v-if="faceMessage" class="face-message-bubble">
+              {{ faceMessage }}
+            </div>
           </div>
-          <p v-if="faceMessage" class="face-message">{{ faceMessage }}</p>
         </div>
     </div>
   </section>
@@ -264,14 +302,6 @@ onUnmounted(() => {
   cursor: default;
 }
 
-.face-message {
-  margin-top: 1.25rem;
-  color: var(--primary);
-  font-size: 1rem;
-  font-weight: 700;
-  text-align: center;
-}
-
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-30px); }
@@ -297,6 +327,40 @@ onUnmounted(() => {
   opacity: 0;
   transition: opacity 2s ease-in-out;
   z-index: 1;
+  cursor: default;
+}
+
+.face-message-bubble {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: rgba(17, 40, 33, 0.95);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 0.75rem 1.25rem;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-strong);
+  text-align: center;
+  backdrop-filter: blur(8px);
+  max-width: 85%;
+  width: max-content;
+  pointer-events: none;
+  animation: bubble-pop-in 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bubble-pop-in {
+  0% {
+    transform: translateX(-50%) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
 }
 
 .hero-image.active {
